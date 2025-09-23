@@ -213,8 +213,8 @@ body:not(.page-home) {
     cursor: pointer;
     padding: 5px;
     width: 30px;
-    height: 36px;
-    gap: 10px;
+    height: 34px;
+    gap: 8px;
 
     @media (max-width: 768px) {
         display: flex;
@@ -241,11 +241,11 @@ body:not(.page-home) {
     .Header.mobile-menu-open & {
         .hamburger-line {
             &:nth-child(1) {
-                transform: translateY(6px) rotate(45deg);
+                transform: translateY(5px) rotate(45deg);
             }
 
             &:nth-child(2) {
-                transform: translateY(-6px) rotate(-45deg);
+                transform: translateY(-5px) rotate(-45deg);
             }
         }
     }
