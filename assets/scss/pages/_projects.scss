@@ -21,6 +21,7 @@
         max-width: 400px;
         transition: all 0.3s ease;
         @extend .type-body-m !optional;
+        margin-bottom: 0.25rem;
 
         &.book-link {
             @extend .type-body-l !optional;

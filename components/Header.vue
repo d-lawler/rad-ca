@@ -57,10 +57,22 @@ const isMobileMenuOpen = ref(false)
 
 const toggleMobileMenu = () => {
     isMobileMenuOpen.value = !isMobileMenuOpen.value
+    // Add/remove body class for browsers that don't support :has()
+    if (process.client) {
+        if (isMobileMenuOpen.value) {
+            document.body.classList.add('mobile-menu-open')
+        } else {
+            document.body.classList.remove('mobile-menu-open')
+        }
+    }
 }
 
 const closeMobileMenu = () => {
     isMobileMenuOpen.value = false
+    // Remove body class
+    if (process.client) {
+        document.body.classList.remove('mobile-menu-open')
+    }
 }
 
 // Close mobile menu on route change
