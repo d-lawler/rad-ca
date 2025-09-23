@@ -23,12 +23,13 @@
         @extend .type-body-m !optional;
 
         &.book-link {
-            @media (min-width: 768px) {
+            @extend .type-body-l !optional;
+
+            @media (max-width: 768px) {
                 font-family: 'FH Oscar', sans-serif;
                 font-weight: 700; // Bold
                 font-size: 36px;
                 line-height: 36px;
-                letter-spacing: 0;
             }
         }
 
