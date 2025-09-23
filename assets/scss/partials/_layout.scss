@@ -1,0 +1,21 @@
+::-webkit-scrollbar {
+    display: none;
+}
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.container {
+    &.additional-padding {
+        @media (min-width: 768px) {
+            padding: 60px;
+            margin-bottom: 120px;
+        }
+    }
+}
+
+.content-padding {
+    padding-top: 120px;
+    padding-bottom: 180px;
+}

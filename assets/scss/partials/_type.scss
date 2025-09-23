@@ -1,0 +1,218 @@
+// ============================================================================
+// Typography Styles
+// ============================================================================
+
+// FH Oscar Font Classes
+.fh-light {
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 300;
+}
+
+.fh-light-italic {
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 300;
+    font-style: italic;
+}
+
+.fh-regular {
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 400;
+}
+
+.fh-regular-italic {
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.fh-medium {
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 500;
+}
+
+.fh-medium-italic {
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.fh-semibold {
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 600;
+}
+
+.fh-semibold-italic {
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.fh-bold {
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 700;
+}
+
+.fh-bold-italic {
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 700;
+    font-style: italic;
+}
+
+.fh-black {
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 900;
+}
+
+.fh-black-italic {
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+}
+
+// GT America Mono Font Classes
+.gt-mono-light {
+    font-family: 'GT America Mono', monospace;
+    font-weight: 300;
+}
+
+.gt-mono-light-italic {
+    font-family: 'GT America Mono', monospace;
+    font-weight: 300;
+    font-style: italic;
+}
+
+.gt-mono-regular {
+    font-family: 'GT America Mono', monospace;
+    font-weight: 400;
+}
+
+.gt-mono-regular-italic {
+    font-family: 'GT America Mono', monospace;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.gt-mono-medium {
+    font-family: 'GT America Mono', monospace;
+    font-weight: 500;
+}
+
+.gt-mono-medium-italic {
+    font-family: 'GT America Mono', monospace;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.gt-mono-bold {
+    font-family: 'GT America Mono', monospace;
+    font-weight: 700;
+}
+
+.gt-mono-bold-italic {
+    font-family: 'GT America Mono', monospace;
+    font-weight: 700;
+    font-style: italic;
+}
+
+
+
+// Navigation Link Styles
+.type-nav {
+    font-family: 'GT America Mono', monospace;
+    font-weight: 500; // Medium
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.2em; // 20%
+    text-transform: uppercase;
+}
+
+.type-caption {
+    font-family: 'GT America Mono', monospace;
+    font-weight: 500; // Medium
+    font-size: 14px;
+    line-height: 120%; // 16.8px
+    letter-spacing: 0.1em; // 10%
+}
+
+.type-body-s {
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 700; // Bold
+    font-size: 18px;
+    line-height: 1.25; // 125%
+    letter-spacing: -0.02em; // -2%
+}
+
+.type-body-m {
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 700; // Bold
+    font-size: 36px;
+    line-height: 100%;
+    letter-spacing: 0;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+}
+
+.type-body-l {
+    font-kerning: optical;
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 700; // Bold
+    font-size: 48px;
+    line-height: 100%;
+    letter-spacing: 0;
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+}
+
+.type-body {
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+.type-medium {
+    text-rendering: optimizeSpeed;
+    font-kerning: optical;
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 600; // Semi Bold
+    font-size: 50px;
+    line-height: 100%;
+    letter-spacing: 0.025em; // 2.5%
+
+    @media (max-width: 768px) {
+        font-size: 30px;
+    }
+}
+
+.type-heading-large {
+    text-rendering: optimizeSpeed;
+    font-kerning: optical;
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 600; // Semi Bold
+    font-size: 76px;
+    line-height: 1; // 100%
+    letter-spacing: 0.025em; // 2.5%
+
+    @media (max-width: 768px) {
+        font-size: 36px;
+    }
+}
+
+.type-heading-display {
+    text-rendering: optimizeSpeed;
+    font-kerning: optical;
+    font-family: 'FH Oscar', sans-serif;
+    font-weight: 700; // Semi Bold
+    font-size: 84px;
+    line-height: 1; // 100%
+    letter-spacing: 0.025em; // 2.5%
+
+    @media (max-width: 768px) {
+        font-size: 58px;
+    }
+}

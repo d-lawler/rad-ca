@@ -1,0 +1,225 @@
+@import '../partials/type';
+
+.Header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 800;
+    pointer-events: auto;
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out;
+
+    // Desktop layout
+    @media (min-width: 769px) {
+        .nav {
+            flex: 1;
+
+            &.link-group {
+                flex: 6;
+            }
+        }
+
+        // Hide mobile elements on desktop
+        .mobile-nav-content {
+            display: none;
+        }
+    }
+
+    // Mobile layout
+    @media (max-width: 768px) {
+        height: 60px;
+        overflow: hidden;
+        transition: height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s,
+                   background-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s,
+                   backdrop-filter 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+
+        &.mobile-menu-open {
+            height: 100vh;
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                       background-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                       backdrop-filter 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        nav {
+            height: 100%;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        // First nav section (CA + hamburger) stays at top
+        > nav > .nav:first-child {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .mobile-nav-content {
+            position: absolute;
+            top: 120px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: calc(100% - 40px);
+            opacity: 0;
+            transform: translateY(20px);
+            visibility: hidden;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+        }
+
+        &.mobile-menu-open .mobile-nav-content {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+            transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s, visibility 0.4s ease 0.2s;
+        }
+
+        .link-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav:last-child {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        // Simple opacity/blur animation for all links
+        .mobile-nav-content {
+            a, .cart-link {
+                opacity: 0;
+                filter: blur(2rem);
+                transition: opacity 0.4s ease, filter 0.4s ease;
+            }
+        }
+
+        &.mobile-menu-open .mobile-nav-content {
+            a, .cart-link {
+                opacity: 1;
+                filter: blur(0px);
+                transition: opacity 0.4s ease 0.3s, filter 0.4s ease 0.3s;
+            }
+        }
+    }
+
+    // Typography and links
+    a,
+    .cart-link {
+        @extend .type-nav !optional;
+
+        padding-bottom: 1px;
+        text-decoration: none;
+        text-transform: uppercase;
+        border-bottom: 2px solid transparent;
+        transition: color 0.3s ease-in-out, border-bottom-color 0.3s ease-in-out;
+        
+        &:hover,
+        &.router-link-active:not(.ca) {
+            color: var(--ca-primary);
+            border-bottom-color: var(--ca-primary);
+        }
+    }
+
+    .ca {
+        @extend .type-nav !optional;
+    }
+}
+
+// Non-home pages get white background
+body:not(.page-home) {
+    .Header {
+        background-color: #fff;
+    }
+}
+
+// Hamburger menu
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    gap: 4px;
+
+    @media (max-width: 768px) {
+        display: flex;
+    }
+
+    .hamburger-line {
+        width: 20px;
+        height: 2px;
+        background-color: #000;
+        transition: all 0.3s ease;
+        display: block;
+        transform-origin: center;
+
+        &:nth-child(1) {
+            transform: translateY(0) rotate(0deg);
+        }
+
+        &:nth-child(2) {
+            transform: translateY(0) rotate(0deg);
+        }
+    }
+
+    // Animated hamburger to X
+    .Header.mobile-menu-open & {
+        .hamburger-line {
+            &:nth-child(1) {
+                transform: translateY(3px) rotate(45deg);
+            }
+
+            &:nth-child(2) {
+                transform: translateY(-3px) rotate(-45deg);
+            }
+        }
+    }
+}
+
+// Desktop nav visibility on mobile
+@media (max-width: 768px) {
+    .Header {
+        // Hide desktop navigation completely on mobile
+        > nav > .link-group,
+        > nav > .nav:not(:first-child) {
+            display: none;
+        }
+
+        // Keep first nav (CA + hamburger) visible
+        > nav > .nav:first-child {
+            display: flex;
+        }
+
+        // Only show mobile nav content when menu is open
+        .mobile-nav-content {
+            display: flex;
+            visibility: hidden;
+        }
+
+        &.mobile-menu-open .mobile-nav-content {
+            display: flex;
+            visibility: visible;
+        }
+    }
+}

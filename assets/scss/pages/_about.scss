@@ -1,0 +1,36 @@
+@import '../partials/type';
+
+.about-page-grid {
+    display: grid;
+    grid-template-columns: 9fr 3fr;
+    gap: 6rem;
+    margin-top: 40vh;
+    padding-bottom: 16rem;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .exhibition-list {
+        @extend .type-caption !optional;
+        margin-bottom: 2rem;
+        
+        h2 {
+            margin-bottom: 1rem;
+        }
+        .exhibition-item {
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+.about-main-content {
+    @extend .type-medium !optional;
+
+    p {
+        margin-bottom: 1.5rem;
+    }
+}
+

@@ -1,0 +1,252 @@
+@import '../partials/type';
+
+.content-list {
+    top: 3rem;
+    left: 2rem;
+    z-index: 10;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    height: 100vh;
+    overflow-y: auto;
+
+    @media (max-width: 768px) {
+        top: 6rem;
+        left: 0;
+    }
+
+    a {
+        width: auto;
+        max-width: 400px;
+        transition: all 0.3s ease;
+        @extend .type-body-m !optional;
+
+        &.book-link {
+            @media (min-width: 768px) {
+                font-family: 'FH Oscar', sans-serif;
+                font-weight: 700; // Bold
+                font-size: 36px;
+                line-height: 36px;
+                letter-spacing: 0;
+            }
+        }
+
+        &:hover {
+            margin-left: 3rem;
+            color: var(--ca-primary);
+            transition: all 0.3s ease;
+        }
+    }
+}
+
+.projects-page .content-list-item,
+.books-page .content-list-item {
+
+    .thumbnail {
+        padding-top: 80px;
+
+        width: 100%;
+        height: 85dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            max-height: 100%;
+            object-fit: contain;
+
+        }
+    }
+
+    .content {
+        position: relative;
+    }
+
+    .title {
+        @extend .type-heading-display !optional;
+        top: 45%;
+        width: 100%;
+        padding-bottom: 8rem;
+        text-align: center;
+        position: sticky;
+
+        h1:hover {
+            color: var(--ca-primary);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        button {
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.333rem;
+            font-family: 'GT America Mono', monospace;
+            margin-top: 1rem;
+
+            @media (min-width: 768px) {
+                font-size: 36px;
+                span.mobile {
+                    display: none;
+                }
+            }
+
+        }
+    }
+
+    .images {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 66vh;
+
+        // ImageRow component styles - let the component handle its own layout
+        .image-row {
+            display: flex;
+            margin-bottom: 18rem;
+            justify-content: center;
+
+            // ImageRow alignment classes
+            &.alignment-left {
+                justify-content: flex-start;
+            }
+
+            &.alignment-center {
+                justify-content: center;
+            }
+
+            &.alignment-right {
+                justify-content: flex-end;
+            }
+
+            // ImageItem component styles within rows
+            .image-item {
+                display: block;
+                flex-shrink: 0;
+
+                // ImageItem size classes
+                &.size-quarter {
+                    flex: 0 0 25%;
+                    max-width: 25%;
+                }
+
+                &.size-third {
+                    flex: 0 0 33.333%;
+                    max-width: 33.333%;
+                }
+
+                &.size-half {
+                    flex: 0 0 50%;
+                    max-width: 50%;
+                }
+
+                &.size-twothirds {
+                    flex: 0 0 66.666%;
+                    max-width: 66.666%;
+                }
+
+                &.size-full {
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
+
+                // Image styling within ImageItem
+                img {
+                    width: 100%;
+                    height: auto;
+                    object-fit: contain;
+                    display: block;
+                }
+
+                // Video styling within ImageItem
+                video {
+                    width: 100%;
+                    height: auto;
+                    object-fit: contain;
+                    display: block;
+                }
+            }
+        }
+
+        // VideoPlayer component styles
+        .video-player {
+            margin: 18rem 0;
+
+            &.full-width {
+                margin-left: calc(-50vw + 50%);
+                margin-right: calc(-50vw + 50%);
+                width: 100vw;
+            }
+        }
+
+        // ImageCarousel component styles
+        .image-carousel {
+            margin-bottom: 18rem;
+        }
+    }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+
+    .projects-page .content-list-item,
+    .books-page .content-list-item {
+        .images {
+            .image-row {
+                margin-bottom: 8rem;
+                // Let component handle responsive sizing
+            }
+
+            .video-player {
+                margin: 8rem 0;
+            }
+
+            .image-carousel {
+                margin: 8rem 0;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+
+    .projects-page .content-list-item,
+    .books-page .content-list-item {
+        .images {
+            .image-row {
+                margin-bottom: 4rem;
+                // Let component handle responsive sizing
+            }
+
+            .video-player {
+                margin: 4rem 0;
+            }
+
+            .image-carousel {
+                margin: 4rem 0;
+            }
+        }
+    }
+}
+
+.thumbnail {
+    margin-top: 50vh;
+}
+
+.story-popup-content {
+    left: 0;
+    z-index: 10000;
+
+    .info-content {
+        padding: 2rem;
+        @extend .type-body-m !optional;
+    }
+}

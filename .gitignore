@@ -1,0 +1,27 @@
+node_modules
+*.log*
+.nuxt
+.nitro
+.cache
+.output
+.env
+dist
+localhost-key.pem
+localhost.pem
+
+# Placeholder images and large assets
+public/homepage/
+public/placeholder/
+
+# Large image files
+*.tif
+*.tiff
+*.psd
+# Large videos
+*.mov
+*.mp4
+*.avi
+*.mkv
+# Temp/cache files
+.DS_Store
+Thumbs.db

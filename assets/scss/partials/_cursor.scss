@@ -1,0 +1,28 @@
+// Custom cursor - desktop only
+.custom-cursor {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #fff;
+    pointer-events: none;
+    z-index: 99999 !important;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s ease, height 0.2s ease;
+    mix-blend-mode: difference;
+
+    &.hover {
+        width: 20px;
+        height: 20px;
+    }
+
+    // Hide cursor on mobile and tablet devices
+    @media (hover: none) and (pointer: coarse) {
+        display: none;
+    }
+
+    // Additional mobile detection
+    @media screen and (max-width: 1024px) {
+        display: none;
+    }
+}

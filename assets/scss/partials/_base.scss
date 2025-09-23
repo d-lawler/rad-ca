@@ -1,0 +1,52 @@
+// ============================================================================
+// Base Styles
+// ============================================================================
+
+// Box Sizing
+// ----------------------------------------------------------------------------
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+// Text selection styles
+::selection {
+    background-color: rgba(255, 62, 33, 0.333);
+}
+::-moz-selection {
+    background-color: rgba(255, 62, 33, 0.333);
+}
+
+// Document
+// ----------------------------------------------------------------------------
+html {
+    font-size: 16px;
+    line-height: 125%;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #ffffff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'FH Oscar', system-ui, -apple-system, sans-serif;
+    font-size: 18px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: #000000;
+    overflow-x: hidden;
+    background-color: #ffffff;
+}
+
+main {
+    min-height: 100vh;
+    background-color: #ffffff;
+}
+
+*, 
+*:hover {
+    cursor: none;
+}
