@@ -58,9 +58,9 @@
                 <div v-if="selectedProduct" class="story-popup-content" @click.stop>
                     <button class="close-btn" @click="showProductPopup = false">&times;</button>
 
-                    <!-- Full bleed carousel -->
-                    <div v-if="selectedProduct.images.edges.length" class="popup-product-carousel">
-                        <div v-for="(image, index) in selectedProduct.images.edges" :key="index" class="carousel-image"
+                    <!-- Full bleed carousel (excluding first image) -->
+                    <div v-if="popupImages.length" class="popup-product-carousel">
+                        <div v-for="(image, index) in popupImages" :key="index" class="carousel-image"
                             :class="{ 'active': index === currentImageIndex }">
                             <img :src="image.node.url" :alt="selectedProduct.title" loading="lazy" />
                         </div>
@@ -98,6 +98,13 @@ const carouselInterval = ref(null)
 // Use global cart state
 const { cartItems, cartOpen, cartTotal, addToCart, removeFromCart, closeCart, createCheckout } = useCart()
 
+// Computed property to get popup images (excluding first image)
+const popupImages = computed(() => {
+    if (!selectedProduct.value || !selectedProduct.value.images.edges.length) return []
+    // Return all images except the first one
+    return selectedProduct.value.images.edges.slice(1)
+})
+
 const config = useRuntimeConfig()
 const shopifyDomain = config.public.shopifyDomain
 const shopifyToken = config.public.shopifyStorefrontToken
@@ -134,9 +141,9 @@ const scrollToGrid = () => {
 }
 
 const startCarousel = () => {
-    if (selectedProduct.value && selectedProduct.value.images.edges.length > 1) {
+    if (selectedProduct.value && popupImages.value.length > 1) {
         carouselInterval.value = setInterval(() => {
-            currentImageIndex.value = (currentImageIndex.value + 1) % selectedProduct.value.images.edges.length
+            currentImageIndex.value = (currentImageIndex.value + 1) % popupImages.value.length
         }, 2500) // Change image every 2.5 seconds
     }
 }
