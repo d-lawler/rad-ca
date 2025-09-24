@@ -19,7 +19,6 @@ public/placeholder/
 *.psd
 # Large videos
 *.mov
-*.mp4
 *.avi
 *.mkv
 # Temp/cache files
