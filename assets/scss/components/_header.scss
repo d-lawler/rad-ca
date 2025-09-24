@@ -30,7 +30,7 @@
             flex: 1;
 
             &.link-group {
-                flex: 6;
+                flex: 4;
             }
         }
 
@@ -174,15 +174,9 @@
         }
 
         // Create shorter bottom border with pseudo-element
-        &:hover::after,
-        &.router-link-active:not(.ca)::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 2.5px;
-            right: 2.5px;
-            height: 2px;
-            background-color: var(--ca-primary);
+        &:hover,
+        &.router-link-active:not(.ca) {
+            border-bottom-color: var(--ca-primary);
             transition: background-color 0.3s ease-in-out;
         }
     }

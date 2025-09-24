@@ -17,13 +17,13 @@
                 <NuxtLink to="/books">Books</NuxtLink>
                 <NuxtLink to="/projects">Index</NuxtLink>
                 <NuxtLink to="/stuff">Stuff</NuxtLink>
-                <ClientOnly>
-                    <button v-if="cartCount > 0" @click="toggleCart" class="cart-link">
-                        Cart: {{ cartCount }}
-                    </button>
-                </ClientOnly>
             </div>
             <div class="flex items-center justify-end space-x-4 nav">
+                <ClientOnly>
+                    <button v-if="cartCount > 0" @click="toggleCart" class="cart-link">
+                        Cart:{{ cartCount }}
+                    </button>
+                </ClientOnly>
                 <NuxtLink to="/about">About</NuxtLink>
             </div>
 
@@ -32,10 +32,9 @@
                 <div class="link-group">
                     <NuxtLink to="/books" @click="closeMobileMenu">Books</NuxtLink>
                     <NuxtLink to="/projects" @click="closeMobileMenu">Index</NuxtLink>
-                    <NuxtLink to="/exhibitions" @click="closeMobileMenu">Shows</NuxtLink>
                     <NuxtLink to="/stuff" @click="closeMobileMenu">Stuff</NuxtLink>
                     <ClientOnly>
-                        <button v-if="cartCount > 0" @click="toggleCart; closeMobileMenu()" class="cart-link">
+                        <button v-if="cartCount > 0" @click="toggleCart" class="cart-link">
                             Cart: {{ cartCount }}
                         </button>
                     </ClientOnly>
