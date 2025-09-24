@@ -18,16 +18,15 @@
 
     h1 {
         @extend .type-heading-display !optional;
-        transition: color 0.3s ease-in-out, transform 0.2s ease;
-        text-align: center;
-        white-space: normal;
         margin: 0;
         padding: 0;
+        contain: layout;
+        text-align: center;
+        white-space: normal;
+        pointer-events: auto;
         font-kerning: optical;
         text-rendering: optimizeSpeed;
-        contain: layout;
-        cursor: pointer;
-        pointer-events: auto;
+        transition: color 0.3s ease-in-out, transform 0.2s ease;
 
         @media (max-width: 768px) {
             white-space: pre-line;

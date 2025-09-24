@@ -15,15 +15,13 @@
 
     h1 {
         @extend .type-heading-large !optional;
-        transition: color 0.3s ease-in-out, transform 0.2s ease;
-        text-align: center;
-        white-space: normal;
-        font-family: 'FH Oscar', system-ui, -apple-system, sans-serif;
         margin: 0;
         padding: 0;
         contain: layout;
+        text-align: center;
+        white-space: normal;
         pointer-events: auto;
-        cursor: pointer;
+        transition: color 0.3s ease-in-out, transform 0.2s ease;
 
         @media (max-width: 768px) {
             white-space: pre-line;
@@ -31,7 +29,6 @@
 
         &:hover {
             color: var(--ca-primary);
-            cursor: pointer;
         }
     }
 }
@@ -44,6 +41,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
 
     .exhibition-item {
         display: block;
@@ -59,8 +58,8 @@
 
         // Ensure proper widths for different column spans
         &.col-span-4.exhibition-size-small {
-            width: calc(33.333% - 1rem);
-            flex: 0 0 calc(33.333% - 1rem);
+            width: calc(33.333% - 1.33rem);
+            flex: 0 0 calc(33.333% - 1.33rem);
         }
 
         &.col-span-6.exhibition-size-medium {
@@ -69,8 +68,8 @@
         }
 
         &.col-span-8.exhibition-size-large {
-            width: calc(66.666% - 1rem);
-            flex: 0 0 calc(66.666% - 1rem);
+            width: calc(66.666% - 0.66rem);
+            flex: 0 0 calc(66.666% - 0.66rem);
         }
 
         .exhibition-text-wrapper {

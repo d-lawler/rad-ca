@@ -46,7 +46,10 @@
                                             :class="{ 'active': index === getCarouselIndex(exhibition.story.uuid) }">
                                             <NuxtImg :src="imageUrl"
                                                 :alt="`${exhibition.story.name} image ${index + 1}`"
-                                                class="exhibition-image w-1/2 h-auto object-contain" loading="lazy" />
+                                                class="exhibition-image w-1/2 h-auto object-contain"
+                                                format="webp"
+                                                quality="70"
+                                                loading="lazy" />
                                         </div>
                                     </div>
                                 </div>
