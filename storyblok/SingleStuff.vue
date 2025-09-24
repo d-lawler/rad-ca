@@ -21,6 +21,36 @@
             </div>
         </div>
 
+        <Transition name="blur-fade">
+            <div v-if="showProductPopup" class="story-popup popup-red popup-right wide tall" @click="showProductPopup = false">
+                <div class="story-popup-content" @click.stop>
+                    <div v-if="selectedProduct && selectedProduct.images.edges.length" class="popup-images">
+                        <div v-for="(image, index) in selectedProduct.images.edges" :key="index" class="image">
+                            <img :src="image.node.url" :alt="selectedProduct.title" loading="lazy" />
+                        </div>
+                    </div>
+                    <div class="popup-text">
+                        <div class="text-content">
+                            <h3>{{ selectedProduct.title }}</h3>
+                            <button class="close-btn" @click="showProductPopup = false">&times;</button>
+                        </div>
+                        <div v-if="selectedProduct">
+                            <div class="product-description">{{ selectedProduct.description }}</div>
+                            <div v-if="selectedProduct.variants.edges.length" class="product-purchase">
+                                <div class="product-price">${{ selectedProduct.variants.edges[0].node.price.amount }}
+                                </div>
+                                <button @click="addToCart(selectedProduct.variants.edges[0].node, selectedProduct)"
+                                    class="add-to-cart-btn">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-popup-backdrop"></div>
+            </div>
+        </Transition>
+
         <!-- Cart Sidebar -->
         <div v-if="cartOpen" class="cart-overlay" @click="closeCart">
             <div class="cart-sidebar" @click.stop>
@@ -33,8 +63,9 @@
                     <div v-for="item in cartItems" :key="item.id" class="cart-item">
                         <div class="cart-item-details">
                             <div class="cart-item-title">{{ item.productTitle }}</div>
-                            <div class="cart-item-variant" v-if="item.variantTitle !== 'Default Title'">{{
-                                item.variantTitle }}</div>
+                            <div class="cart-item-variant" v-if="item.variantTitle !== 'Default Title'">
+                                {{item.variantTitle }}
+                            </div>
                         </div>
                         <div class="cart-item-price">${{ item.price.toFixed(2) }}</div>
                         <button @click="removeFromCart(item.id)" class="remove-btn">Remove</button>
@@ -50,35 +81,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Product Popup -->
-        <Transition name="popup">
-            <div v-if="showProductPopup" class="story-popup popup-left popup-white tall"
-                @click="showProductPopup = false">
-                <div v-if="selectedProduct" class="story-popup-content" @click.stop>
-                    <button class="close-btn" @click="showProductPopup = false">&times;</button>
-
-                    <!-- Full bleed carousel (excluding first image) -->
-                    <div v-if="popupImages.length" class="popup-product-carousel">
-                        <div v-for="(image, index) in popupImages" :key="index" class="carousel-image"
-                            :class="{ 'active': index === currentImageIndex }">
-                            <img :src="image.node.url" :alt="selectedProduct.title" loading="lazy" />
-                        </div>
-                    </div>
-
-                    <!-- Text content area -->
-                    <div class="product-text-content">
-                        <div class="product-description">{{ selectedProduct.description }}</div>
-                        <div v-if="selectedProduct.variants.edges.length" class="popup-product-purchase">
-                            <button @click="addToCart(selectedProduct.variants.edges[0].node, selectedProduct)"
-                                class="add-to-cart-btn">
-                                Add to Cart &nbsp; &rarr;
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </Transition>
 
     </div>
 </template>
@@ -158,15 +160,9 @@ const stopCarousel = () => {
 const openProductPopup = (product) => {
     selectedProduct.value = product
     showProductPopup.value = true
-    currentImageIndex.value = 0
-
-    // Start carousel after a short delay to let the popup render
-    nextTick(() => {
-        startCarousel()
-    })
 }
 
-// Watch for popup closing to stop carousel
+// Watch for popup closing
 watch(showProductPopup, (newValue) => {
     if (!newValue) {
         stopCarousel()

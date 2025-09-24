@@ -43,20 +43,19 @@
                 </div>
             </Transition>
             <!--  -->
-            <Transition name="fade-blur" mode="out-in">
-                <div v-if="showInfoPopup"
-                     class="story-popup popup-left popup-white tall"
-                     @click="showInfoPopup = false">
+            <Transition name="blur-fade">
+                <div v-if="showInfoPopup" class="story-popup half-width" @click="showInfoPopup = false">
                     <div class="story-popup-content" @click.stop>
-                        <button class="close-btn" @click="showInfoPopup = false">&times;</button>
-                        <div class="info-content">
-                            <h2>{{ selectedProject?.content?.name }}</h2>
-                            <div v-if="selectedProject?.content?.story_text"
-                                 class="description">
-                                <div v-html="renderRichText(selectedProject?.content?.story_text)"></div>
+                        <div class="popup-text">
+                            <div class="text-content">
+                                <h3>{{ selectedProject?.content?.name }}</h3>
+                                <button class="close-btn" @click="showInfoPopup = false">&times;</button>
                             </div>
+                            <div v-if="selectedProject?.content?.story_text"
+                                v-html="renderRichText(selectedProject?.content?.story_text)"></div>
                         </div>
                     </div>
+                    <div class="story-popup-backdrop"></div>
                 </div>
             </Transition>
         </div>

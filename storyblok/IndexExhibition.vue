@@ -46,10 +46,8 @@
                                             :class="{ 'active': index === getCarouselIndex(exhibition.story.uuid) }">
                                             <NuxtImg :src="imageUrl"
                                                 :alt="`${exhibition.story.name} image ${index + 1}`"
-                                                class="exhibition-image w-1/2 h-auto object-contain"
-                                                format="webp"
-                                                quality="70"
-                                                loading="lazy" />
+                                                class="exhibition-image w-1/2 h-auto object-contain" format="webp"
+                                                quality="70" loading="lazy" />
                                         </div>
                                     </div>
                                 </div>
@@ -60,13 +58,27 @@
 
             </div>
         </div>
-        <Transition name="popup">
-            <div v-if="showPopup" class="story-popup popup-red popup-right" @click="showPopup = false">
+        <Transition name="blur-fade">
+            <div v-if="showPopup" class="story-popup popup-red popup-right wide tall" @click="showPopup = false">
                 <div class="story-popup-content" @click.stop>
-                    <button class="close-btn" @click="showPopup = false">&times;</button>
-                    <div v-if="selectedExhibition"
-                        v-html="renderRichText(selectedExhibition.story.content.full_text)" />
+                    <div v-if="selectedExhibition && getExhibitionImages(selectedExhibition.story.content).length"
+                        class="popup-images">
+                        <div v-for="(imageUrl, index) in getExhibitionImages(selectedExhibition.story.content)"
+                            :key="index" class="image" :class="{ 'active': index === popupImageIndex }">
+                            <NuxtImg :src="imageUrl" :alt="`${selectedExhibition.story.name} image ${index + 1}`"
+                                format="webp" quality="20" loading="lazy" />
+                        </div>
+                    </div>
+                    <div class="popup-text">
+                        <div class="text-content">
+                            <h3>{{ selectedExhibition.story.content.heading }}</h3>
+                            <button class="close-btn" @click="showPopup = false">&times;</button>
+                        </div>
+                        <div v-if="selectedExhibition"
+                            v-html="renderRichText(selectedExhibition.story.content.full_text)" />
+                    </div>
                 </div>
+                <div class="story-popup-backdrop"></div>
             </div>
         </Transition>
     </div>
@@ -81,6 +93,8 @@ const titleElement = ref(null)
 const gridElement = ref(null)
 const showPopup = ref(false)
 const selectedExhibition = ref(null)
+const popupImageIndex = ref(0)
+const popupCarouselInterval = ref(null)
 const carouselIndexes = ref({})
 const carouselIntervals = ref({})
 
@@ -132,6 +146,24 @@ const stopCarousel = (exhibitionId) => {
     if (carouselIntervals.value[exhibitionId]) {
         clearInterval(carouselIntervals.value[exhibitionId])
         delete carouselIntervals.value[exhibitionId]
+    }
+}
+
+const startPopupCarousel = () => {
+    if (selectedExhibition.value) {
+        const images = getExhibitionImages(selectedExhibition.value.story.content)
+        if (images.length > 1) {
+            popupCarouselInterval.value = setInterval(() => {
+                popupImageIndex.value = (popupImageIndex.value + 1) % images.length
+            }, 3000) // Change image every 3 seconds
+        }
+    }
+}
+
+const stopPopupCarousel = () => {
+    if (popupCarouselInterval.value) {
+        clearInterval(popupCarouselInterval.value)
+        popupCarouselInterval.value = null
     }
 }
 
@@ -202,19 +234,21 @@ const scrollToGrid = () => {
 const openPopup = (exhibition) => {
     selectedExhibition.value = exhibition
     showPopup.value = true
+    popupImageIndex.value = 0
 
-    // Set all links to open in new window after popup is rendered
+    // Start popup carousel after transition
     nextTick(() => {
-        const popup = document.querySelector('.story-popup')
-        if (popup) {
-            const links = popup.querySelectorAll('a')
-            links.forEach(link => {
-                link.setAttribute('target', '_blank')
-                link.setAttribute('rel', 'noopener noreferrer')
-            })
-        }
+        startPopupCarousel()
     })
 }
+
+
+// Watch for popup closing to stop carousel
+watch(showPopup, (newValue) => {
+    if (!newValue) {
+        stopPopupCarousel()
+    }
+})
 
 function formatDate(dateStr) {
     if (!dateStr) return '';
@@ -289,5 +323,8 @@ onUnmounted(() => {
     Object.keys(carouselIntervals.value).forEach(exhibitionId => {
         stopCarousel(exhibitionId)
     })
+
+    // Clean up popup carousel interval
+    stopPopupCarousel()
 })
 </script>

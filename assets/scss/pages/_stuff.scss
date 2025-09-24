@@ -68,81 +68,8 @@
     color: var(--ca-primary);
 }
 
-/* Product Popup Styles - Specific to stuff page */
-.story-popup.popup-white.tall {
-    .story-popup-content {
-        padding: 0 !important;
-        font-size: inherit;
-        line-height: inherit;
-        font-family: inherit;
-        font-weight: inherit;
 
-        .popup-product-carousel {
-            position: relative;
-            width: calc(100% + 40px);
-            margin-left: -20px;
-            margin-right: -20px;
-            overflow: hidden;
 
-            .carousel-image {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                opacity: 0;
-                transition: opacity 0.5s ease-in-out;
-
-                &.active {
-                    opacity: 1;
-                    position: relative;
-                }
-
-                img {
-                    width: 100%;
-                    height: auto;
-                    display: block;
-                }
-            }
-        }
-
-        .product-text-content {
-            padding: 20px 40px;
-
-            .product-description {
-                @extend .type-body-m !optional;
-                margin: 0 0 2rem 0;
-            }
-
-            .popup-product-purchase {
-                margin-top: auto;
-                padding-bottom: 6rem;
-
-                .add-to-cart-btn {
-                    background: black;
-                    color: white;
-                    border: none;
-                    padding: 2rem;
-                    font-family: 'FH Oscar', system-ui, -apple-system, sans-serif;
-                    font-weight: 700;
-                    font-size: 30px;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease;
-                    width: 100%;
-
-                    &:hover {
-                        background: var(--ca-primary);
-                    }
-                }
-            }
-        }
-
-    }
-}
-
-/* Ensure close button in stuff popup stays above carousel images */
-.story-popup.popup-white.tall button.close-btn {
-    z-index: 10;
-}
 
 /* Cart Styles */
 .cart-overlay {
