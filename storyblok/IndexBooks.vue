@@ -34,7 +34,7 @@
                             muted
                             loop
                             playsinline
-                            style="width: 100%; height: auto; margin-bottom: 12rem;"
+                            style="width: 100%; height: auto; margin-bottom: 12rem; z-index: 0"
                         >
                             <source src="/approximate_joy_flipbook.mp4" type="video/mp4">
                         </video>

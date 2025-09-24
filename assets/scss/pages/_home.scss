@@ -92,7 +92,7 @@
 }
 
 .grid-image {
-    width: 15vw;
+    width: 20vw;
     display: block;
     margin-bottom: 6rem;
     position: relative;
@@ -112,6 +112,8 @@
     justify-content: flex-start;
     flex-direction: row;
 
+    margin-top: -3rem;
+
     &:nth-child(3n) {
         width: 100%;
         justify-content: space-evenly;
@@ -127,7 +129,7 @@
             }
         }
         img:nth-child(even) {
-            margin-top: -5rem;
+            margin-top: 5rem;
         }
     }
 
@@ -135,18 +137,18 @@
         img:nth-child(even) {
             z-index: 20;
             width: 20vw;
-            margin-top: -10rem;
+            margin-top: 10rem;
         }
 
         img:nth-child(odd) {
             z-index: 1;
-            margin-top: -5rem;
+            margin-top: 15rem;
             margin-right: 5rem;
         }
 
         img:nth-child(3) {
             z-index: 1;
-            margin-top: 10rem;
+            margin-top: 5rem;
             width: 25vw;
         }
     }
