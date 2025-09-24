@@ -1,11 +1,16 @@
 @import '../partials/type';
 
+// Homepage container to ensure proper stacking context for blend modes
+.homepage-content {
+    position: relative;
+    z-index: 0;
+}
+
 .ca-wordmark {
     top: 0;
     left: 0;
     bottom: 0;
     width: 100%;
-    z-index: 10;
     height: 100dvh;
     position: fixed;
     z-index: 10;
@@ -14,7 +19,7 @@
     align-items: center;
     justify-content: center;
     pointer-events: none;
-    isolation: isolate;
+    mix-blend-mode: multiply;
 
     h1 {
         @extend .type-heading-display !optional;
@@ -27,14 +32,13 @@
         font-kerning: optical;
         text-rendering: optimizeSpeed;
         transition: color 0.3s ease-in-out, transform 0.2s ease;
-
+        
         @media (max-width: 768px) {
             white-space: pre-line;
         }
 
         &:hover {
             color: var(--ca-primary);
-            cursor: pointer;
         }
     }
 }
