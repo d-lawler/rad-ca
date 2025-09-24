@@ -17,18 +17,18 @@
                 </div>
             </Transition>
             <Transition name="fade-blur" mode="out-in">
-                <div v-if="hoveredProject || selectedProject" class="content"
-                    :key="(hoveredProject || selectedProject)?.uuid">
+                <div v-if="selectedProject" class="content"
+                    :key="selectedProject?.uuid">
                     <div class="title" ref="titleElement" style="opacity: 0; transition: opacity 0.3s ease;">
                         <h1 @click="toggleInfoPopup" style="cursor: pointer;">
-                            {{ (hoveredProject || selectedProject)?.content?.name }}
+                            {{ selectedProject?.content?.name }}
                             <button class="info-button" @click="toggleInfoPopup">
                                 (I<span class="mobile">NFO</span>)
                             </button>
                         </h1>
                     </div>
                     <div class="images">
-                        <div v-for="block in (hoveredProject || selectedProject)?.content?.content" :key="block._uid">
+                        <div v-for="block in selectedProject?.content?.content" :key="block._uid">
                             <StoryblokComponent :blok="block" />
                         </div>
                     </div>
@@ -42,10 +42,10 @@
                     <div class="story-popup-content" @click.stop>
                         <button class="close-btn" @click="showInfoPopup = false">&times;</button>
                         <div class="info-content">
-                            <h2>{{ (hoveredProject || selectedProject)?.content?.name }}</h2>
-                            <div v-if="(hoveredProject || selectedProject)?.content?.story_text"
+                            <h2>{{ selectedProject?.content?.name }}</h2>
+                            <div v-if="selectedProject?.content?.story_text"
                                  class="description">
-                                <div v-html="renderRichText((hoveredProject || selectedProject)?.content?.story_text)"></div>
+                                <div v-html="renderRichText(selectedProject?.content?.story_text)"></div>
                             </div>
                         </div>
                     </div>

@@ -11,16 +11,17 @@
         <div v-if="!isAtBottom" class="container additional-padding content-list-item">
             <Transition name="fade-blur" mode="out-in" id="scroll-anchor">
                 <div v-if="(hoveredBook || selectedBook)?.content?.featured_image" class="thumbnail"
+                    :class="{ 'thumbnail-locked': !selectedBook }"
                     :key="(hoveredBook || selectedBook)?.uuid">
                     <NuxtImg :src="(hoveredBook || selectedBook).content.featured_image.filename"
                         :alt="(hoveredBook || selectedBook).content.featured_image.alt" />
                 </div>
             </Transition>
             <Transition name="fade-blur" mode="out-in">
-                <div v-if="hoveredBook || selectedBook" class="content" :key="(hoveredBook || selectedBook)?.uuid">
+                <div v-if="selectedBook" class="content" :key="selectedBook?.uuid">
                     <div class="title" ref="titleElement" style="opacity: 0; transition: opacity 0.3s ease;">
                         <h1 @click="toggleInfoPopup" style="cursor: pointer;">
-                            {{ (hoveredBook || selectedBook)?.content?.name }}
+                            {{ selectedBook?.content?.name }}
                             <button class="info-button"
                                 @click="toggleInfoPopup">
                                 (I<span class="mobile">NFO</span>)
@@ -39,7 +40,7 @@
                             <source src="/approximate_joy_flipbook.mp4" type="video/mp4">
                         </video>
 
-                        <div v-for="block in (hoveredBook || selectedBook)?.content?.content" :key="block._uid">
+                        <div v-for="block in selectedBook?.content?.content" :key="block._uid">
                             <StoryblokComponent :blok="block" />
                         </div>
                     </div>
@@ -52,8 +53,8 @@
                     <div class="story-popup-content" @click.stop>
                         <button class="close-btn" @click="showInfoPopup = false">&times;</button>
                         <div class="info-content">
-                            <div v-if="(hoveredBook || selectedBook)?.content?.story_text" class="description">
-                                <div v-html="renderRichText((hoveredBook || selectedBook)?.content?.story_text)"></div>
+                            <div v-if="selectedBook?.content?.story_text" class="description">
+                                <div v-html="renderRichText(selectedBook?.content?.story_text)"></div>
                             </div>
                         </div>
                     </div>
