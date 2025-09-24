@@ -4,21 +4,29 @@
         <Transition name="fade-blur" mode="out-in">
             <div v-if="!selectedProject || isAtBottom" class="container additional-padding content-list project-list" key="project-list">
                 <a v-for="project in projects" :key="project.uuid" href="javascript:void(0)"
-                    @mouseenter="hoveredProject = project" @mouseleave="hoveredProject = null"
+                    @mouseenter="hoveredProject = project; randomPositionClass = 'position-' + ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'][Math.floor(Math.random() * 10)]" @mouseleave="hoveredProject = null"
                     @click="selectProject(project)">{{ project.name }}</a>
             </div>
         </Transition>
-        <div v-if="!isAtBottom" class="container additional-padding content-list-item">
-            <Transition name="fade-blur" mode="out-in" id="scroll-anchor">
-                <div v-if="(hoveredProject || selectedProject)?.content?.featured_image" class="thumbnail"
+        <div v-if="!isAtBottom" class=" content-list-item">
+            <Transition name="fade-blur" mode="out-in">
+                <div v-if="hoveredProject?.content?.featured_image && !selectedProject" class="thumbnail"
                     :key="(hoveredProject || selectedProject)?.uuid">
-                    <NuxtImg :src="(hoveredProject || selectedProject).content.featured_image.filename"
-                        :alt="(hoveredProject || selectedProject).content.featured_image.alt" />
+                    <NuxtImg :src="hoveredProject.content.featured_image.filename"
+                        :alt="hoveredProject.content.featured_image.alt"
+                        :class="randomPositionClass" />
                 </div>
             </Transition>
             <Transition name="fade-blur" mode="out-in">
-                <div v-if="selectedProject" class="content"
-                    :key="selectedProject?.uuid">
+                <div v-if="selectedProject" class="content container additional-padding"
+                    :key="selectedProject?.uuid" id="scroll-anchor">
+
+                    <!-- lets include the thumbnail here but with no extra class for position -->
+                    <div class="backup-thumb">
+                        <NuxtImg :src="selectedProject.content.featured_image.filename"
+                            :alt="selectedProject.content.featured_image.alt" />
+                    </div>
+
                     <div class="title" ref="titleElement" style="opacity: 0; transition: opacity 0.3s ease;">
                         <h1 @click="toggleInfoPopup" style="cursor: pointer;">
                             {{ selectedProject?.content?.name }}
@@ -65,6 +73,7 @@ const selectedProject = ref(null)
 const isAtBottom = ref(false)
 const showInfoPopup = ref(false)
 const titleElement = ref(null)
+const randomPositionClass = ref('')
 const storyblokApi = useStoryblokApi()
 const route = useRoute()
 const router = useRouter()

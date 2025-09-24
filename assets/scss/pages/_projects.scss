@@ -257,17 +257,72 @@
 
 
 .projects-page .thumbnail {
+    width: 100vw !important;
+    height: 100vh !important;
+
     img {
         width: 66%;
         height: auto;
         max-width: 66%;
         max-height: 66%;
         object-fit: contain;
+
+        &.position-one {
+            // center
+        }
+        &.position-two {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        &.position-three {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        &.position-four {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+        &.position-five {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        &.position-six {
+            position: absolute;
+            top: 25%;
+            left: 25%;
+        }
+        &.position-seven {
+            position: absolute;
+            top: 25%;
+            bottom: 25%;
+        }
+        &.position-eight {
+            position: absolute;
+            bottom: 25%;
+            left: 25%;
+        }
+        &.position-nie {
+            position: absolute;
+            bottom: 25%;
+            right: 25%;
+        }
+        &.position-ten {
+            // center
+        }
     }
 }
 
 
-
+.backup-thumb {
+    img {
+        width: 100%;
+        margin-bottom: 6rem;
+    }
+}
 
 .story-popup-content {
     left: 0;
