@@ -18,9 +18,9 @@
             </Transition>
             <Transition name="fade-blur" mode="out-in">
                 <div v-if="hoveredBook || selectedBook" class="content" :key="(hoveredBook || selectedBook)?.uuid">
-                    <div class="title">
+                    <div class="title" ref="titleElement" style="opacity: 0; transition: opacity 0.3s ease;">
                         <h1 @click="toggleInfoPopup" style="cursor: pointer;">
-                            {{ (hoveredBook || selectedBook)?.content?.name }} 
+                            {{ (hoveredBook || selectedBook)?.content?.name }}
                             <button class="info-button"
                                 @click="toggleInfoPopup">
                                 (I<span class="mobile">NFO</span>)
@@ -28,6 +28,17 @@
                         </h1>
                     </div>
                     <div class="images">
+                        <!-- Hardcoded HTML5 video above image loop -->
+                        <video
+                            autoplay
+                            muted
+                            loop
+                            playsinline
+                            style="width: 100%; height: auto; margin-bottom: 12rem;"
+                        >
+                            <source src="/approximate_joy_flipbook.mp4" type="video/mp4">
+                        </video>
+
                         <div v-for="block in (hoveredBook || selectedBook)?.content?.content" :key="block._uid">
                             <StoryblokComponent :blok="block" />
                         </div>
@@ -61,6 +72,7 @@ const hoveredBook = ref(null)
 const selectedBook = ref(null)
 const isAtBottom = ref(false)
 const showInfoPopup = ref(false)
+const titleElement = ref(null)
 const storyblokApi = useStoryblokApi()
 const route = useRoute()
 const router = useRouter()
@@ -82,7 +94,55 @@ const selectBook = (book) => {
     })
 }
 
+const handleTitleFade = () => {
+    if (!titleElement.value) return
+
+    const imagesContainer = document.querySelector('.images')
+    if (!imagesContainer) return
+
+    const images = imagesContainer.querySelectorAll('img')
+    if (images.length === 0) return
+
+    const viewportHeight = window.innerHeight
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+
+    // Calculate how many images are in view
+    let visibleImages = 0
+    let totalImageHeight = 0
+
+    images.forEach(img => {
+        const rect = img.getBoundingClientRect()
+        const imageTop = rect.top + scrollTop
+        const imageBottom = imageTop + rect.height
+
+        totalImageHeight += rect.height
+
+        // Check if image is in viewport
+        if (rect.top < viewportHeight && rect.bottom > 0) {
+            visibleImages++
+        }
+    })
+
+    // Calculate opacity based on scroll progress through images
+    const imagesRect = imagesContainer.getBoundingClientRect()
+    const imagesStart = imagesRect.top + scrollTop
+    const imagesEnd = imagesStart + imagesRect.height
+    const viewportBottom = scrollTop + viewportHeight
+
+    let opacity = 0
+    if (viewportBottom > imagesStart) {
+        const progressThroughImages = Math.min(1, (viewportBottom - imagesStart) / imagesRect.height)
+        // Fade in over first 20% of scroll through images (5x faster)
+        opacity = Math.min(1, progressThroughImages * 5)
+    }
+
+    titleElement.value.style.opacity = opacity
+}
+
 const handleScroll = () => {
+    // Handle title fade effect
+    handleTitleFade()
+
     // Don't trigger if we're already at bottom, no book is selected, or popup is open
     if (isAtBottom.value || !selectedBook.value || showInfoPopup.value) return
 
@@ -112,6 +172,11 @@ const resetView = () => {
     selectedBook.value = null
     hoveredBook.value = null
     showInfoPopup.value = false
+
+    // Reset title opacity
+    if (titleElement.value) {
+        titleElement.value.style.opacity = 0
+    }
 
     // Clear URL parameters
     router.push({

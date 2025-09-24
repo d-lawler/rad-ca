@@ -133,6 +133,7 @@
             .image-item {
                 display: block;
                 flex-shrink: 0;
+                position: relative;
 
                 // ImageItem size classes
                 &.size-quarter {
@@ -166,6 +167,7 @@
                     height: auto;
                     object-fit: contain;
                     display: block;
+                    z-index: -1;
                 }
 
                 // Video styling within ImageItem

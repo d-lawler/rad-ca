@@ -19,7 +19,7 @@
             <Transition name="fade-blur" mode="out-in">
                 <div v-if="hoveredProject || selectedProject" class="content"
                     :key="(hoveredProject || selectedProject)?.uuid">
-                    <div class="title">
+                    <div class="title" ref="titleElement" style="opacity: 0; transition: opacity 0.3s ease;">
                         <h1 @click="toggleInfoPopup" style="cursor: pointer;">
                             {{ (hoveredProject || selectedProject)?.content?.name }}
                             <button class="info-button" @click="toggleInfoPopup">
@@ -64,6 +64,7 @@ const hoveredProject = ref(null)
 const selectedProject = ref(null)
 const isAtBottom = ref(false)
 const showInfoPopup = ref(false)
+const titleElement = ref(null)
 const storyblokApi = useStoryblokApi()
 const route = useRoute()
 const router = useRouter()
@@ -85,7 +86,55 @@ const selectProject = (project) => {
     })
 }
 
+const handleTitleFade = () => {
+    if (!titleElement.value) return
+
+    const imagesContainer = document.querySelector('.images')
+    if (!imagesContainer) return
+
+    const images = imagesContainer.querySelectorAll('img')
+    if (images.length === 0) return
+
+    const viewportHeight = window.innerHeight
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+
+    // Calculate how many images are in view
+    let visibleImages = 0
+    let totalImageHeight = 0
+
+    images.forEach(img => {
+        const rect = img.getBoundingClientRect()
+        const imageTop = rect.top + scrollTop
+        const imageBottom = imageTop + rect.height
+
+        totalImageHeight += rect.height
+
+        // Check if image is in viewport
+        if (rect.top < viewportHeight && rect.bottom > 0) {
+            visibleImages++
+        }
+    })
+
+    // Calculate opacity based on scroll progress through images
+    const imagesRect = imagesContainer.getBoundingClientRect()
+    const imagesStart = imagesRect.top + scrollTop
+    const imagesEnd = imagesStart + imagesRect.height
+    const viewportBottom = scrollTop + viewportHeight
+
+    let opacity = 0
+    if (viewportBottom > imagesStart) {
+        const progressThroughImages = Math.min(1, (viewportBottom - imagesStart) / imagesRect.height)
+        // Fade in over first 20% of scroll through images (5x faster)
+        opacity = Math.min(1, progressThroughImages * 5)
+    }
+
+    titleElement.value.style.opacity = opacity
+}
+
 const handleScroll = () => {
+    // Handle title fade effect
+    handleTitleFade()
+
     // Don't trigger if we're already at bottom, no project is selected, or popup is open
     if (isAtBottom.value || !selectedProject.value || showInfoPopup.value) return
 
@@ -115,6 +164,11 @@ const resetView = () => {
     selectedProject.value = null
     hoveredProject.value = null
     showInfoPopup.value = false
+
+    // Reset title opacity
+    if (titleElement.value) {
+        titleElement.value.style.opacity = 0
+    }
 
     // Clear URL parameters
     router.push({
