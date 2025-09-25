@@ -215,7 +215,6 @@ const handleVideoClick = () => {
     }
 
     .play-button {
-        padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
     }
 
@@ -231,7 +230,6 @@ const handleVideoClick = () => {
     }
 
     .play-button {
-        padding: 0.3rem 0.6rem;
         font-size: 0.75rem;
     }
 

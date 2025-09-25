@@ -100,11 +100,6 @@ onUnmounted(() => {
     opacity: 0;
 }
 
-.carousel-nav-btn:hover {
-    opacity: 0.1;
-    background: rgba(0, 0, 0, 0.1);
-}
-
 .carousel-nav-prev {
     left: 0;
 }
