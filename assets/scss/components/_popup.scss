@@ -4,17 +4,26 @@
     position: fixed;
     z-index: 700;
     bottom: 0;
-    left: 20px;
-    height: 66vh;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
     overflow-y: auto;
     overflow-x: hidden;
-    width: calc(100vw - 40px);
+    backdrop-filter: blur(2rem);
+    background-color: rgba($color: #eeeeee, $alpha: 0.8);
 
     .story-popup-content {
+        height: 66vh;
+        margin: 0 20px;
+        width: calc(100% - 40px);       
+        overflow: scroll;
+         
         display: flex;
         flex-direction: row;
         background-color: #ffffff;
-        
 
         .popup-images {
             gap: 20px;
@@ -52,17 +61,6 @@
             z-index: 950;
             position: absolute;
         }
-    }
-
-    .story-popup-backdrop {
-        left: 0;
-        bottom: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: -1;
-        position: fixed;
-        backdrop-filter: blur(2rem);
-        background-color: rgba($color: #eeeeee, $alpha: 0.8);
     }
 
     .product-purchase {

@@ -78,7 +78,6 @@
                             v-html="renderRichText(selectedExhibition.story.content.full_text)" />
                     </div>
                 </div>
-                <div class="story-popup-backdrop"></div>
             </div>
         </Transition>
     </div>
