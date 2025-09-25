@@ -7,20 +7,24 @@
     justify-content: space-evenly;
 
     gap: 2rem;
-    padding: 6rem 8rem;
+    
     margin-top: 75dvh;
     place-items: center;
+
+    @media (min-width: 769px) {
+        padding: 6rem 8rem;
+    }
 }
 
 .product-item {
-    width: 45%;     
+      
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 6rem;
-
-    /* Make every 2nd and 3rd item in each row thinner - desktop only */
+ 
     @media (min-width: 769px) {
+        width: 45%;
         &:nth-child(4n+2),
         &:nth-child(4n+3) {
             padding: 4rem;

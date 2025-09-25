@@ -35,6 +35,7 @@
 
 
 .show-grid {
+    padding-bottom: 12rem;
     padding-top: 80px;
     margin-top: 75dvh;
     display: flex;
@@ -157,7 +158,7 @@
         height: 33vh;
 
         @media (max-width: 768px) {
-            height: 45vw;
+            height: 60vw;
         }
     }
 }
@@ -167,7 +168,7 @@
         height: 50vh;
 
         @media (max-width: 768px) {
-            height: 45vw;
+            height: 60vw;
         }
     }
 }
@@ -177,7 +178,7 @@
         height: 66vh;
 
         @media (max-width: 768px) {
-            height: 45vw;
+            height: 60vw;
         }
     }
 }
