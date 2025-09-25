@@ -1,6 +1,7 @@
 <template>
     <div v-editable="blok" class="image-carousel">
         <Carousel
+            ref="carousel"
             :items-to-show="itemsToShow"
             :wrap-around="true"
             :transition="500"
@@ -20,6 +21,10 @@
                 </div>
             </Slide>
         </Carousel>
+
+        <!-- Large invisible navigation buttons -->
+        <button class="carousel-nav-btn carousel-nav-prev" @click="goToPrev" aria-label="Previous image"></button>
+        <button class="carousel-nav-btn carousel-nav-next" @click="goToNext" aria-label="Next image"></button>
     </div>
 </template>
 
@@ -27,6 +32,7 @@
 const props = defineProps({ blok: Object })
 const currentSlide = ref(0)
 const windowWidth = ref(0)
+const carousel = ref(null)
 
 const itemsToShow = computed(() => {
     return windowWidth.value <= 768 ? 1 : 1.5
@@ -46,6 +52,18 @@ const updateWindowWidth = () => {
     windowWidth.value = window.innerWidth
 }
 
+const goToPrev = () => {
+    if (carousel.value) {
+        carousel.value.prev()
+    }
+}
+
+const goToNext = () => {
+    if (carousel.value) {
+        carousel.value.next()
+    }
+}
+
 onMounted(() => {
     updateWindowWidth()
     window.addEventListener('resize', updateWindowWidth)
@@ -61,10 +79,38 @@ onUnmounted(() => {
     width: 100vw;
     margin-left: -3.75rem !important;
     margin-right: -3.75rem !important;
+    position: relative;
 }
 
 .image-carousel img {
     height: 70vh;
+}
+
+/* Large invisible navigation buttons */
+.carousel-nav-btn {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0;
+}
+
+.carousel-nav-btn:hover {
+    opacity: 0.1;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.carousel-nav-prev {
+    left: 0;
+}
+
+.carousel-nav-next {
+    right: 0;
 }
 
 /* Mobile responsive styles */

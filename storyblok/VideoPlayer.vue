@@ -105,10 +105,6 @@ const handleVideoClick = () => {
     cursor: pointer;
 }
 
-.video-container:hover .play-button {
-    transform: scale(1.1);
-}
-
 /* Aspect ratio variants */
 .video-player.aspect-16-9 .video-container {
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
@@ -162,18 +158,21 @@ const handleVideoClick = () => {
 }
 
 .play-button {
-    padding: 0.5rem 1rem;
-    background: rgba(255, 255, 255, 0.9);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #000;
+    color: #fff;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 3px;
+    font-family: 'GT America Mono', monospace;
+    font-weight: 500; 
+    font-size: 14px;
+    line-height: 120%; 
+    letter-spacing: 0.1em;
 }
 
 .video-main {
