@@ -78,10 +78,6 @@
     position: relative;
     margin: 1rem;
     z-index: 1;
-
-    @media (max-width: 768px) {
-        width: 15vw;
-    }
 }
 
 .image-grid-group {
@@ -91,7 +87,6 @@
     align-items: center;
     justify-content: flex-start;
     flex-direction: row;
-
     margin-top: -3rem;
 
     &:nth-child(3n) {
@@ -117,13 +112,19 @@
         img:nth-child(even) {
             z-index: 20;
             width: 15vw;
-            margin-top: -7rem;
+        
+            @media (min-width: 768px) {
+                margin-top: -7rem;
+            }
         }
 
         img:nth-child(odd) {
             z-index: 1;
-            margin-top: -10rem;
-            margin-right: 5rem;
+            
+            @media (min-width: 768px) {
+                margin-top: -10rem;
+                margin-right: 5rem;
+            }
         }
 
         img:nth-child(3) {
@@ -143,6 +144,7 @@
             @media (max-width: 768px) {
                 width: 30vw;
                 margin-top: 10rem;
+                margin-left: 2rem;
             }
         }
     }
@@ -156,6 +158,7 @@
             @media (max-width: 768px) {
                 width: 30vw;
                 margin-top: 10rem;
+                margin-left: 2rem;
             }
         }
     }
