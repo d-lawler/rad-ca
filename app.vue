@@ -4,6 +4,7 @@
       <NuxtPage />
     </NuxtLayout>
     <CustomCursor />
+    <Cart />
   </div>
 </template>
 

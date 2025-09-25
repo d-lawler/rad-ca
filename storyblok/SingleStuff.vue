@@ -51,36 +51,6 @@
             </div>
         </Transition>
 
-        <!-- Cart Sidebar -->
-        <div v-if="cartOpen" class="cart-overlay" @click="closeCart">
-            <div class="cart-sidebar" @click.stop>
-                <div class="cart-header">
-                    <h2>Cart</h2>
-                    <button @click="closeCart">Close</button>
-                </div>
-
-                <div v-if="cartItems.length" class="cart-items">
-                    <div v-for="item in cartItems" :key="item.id" class="cart-item">
-                        <div class="cart-item-details">
-                            <div class="cart-item-title">{{ item.productTitle }}</div>
-                            <div class="cart-item-variant" v-if="item.variantTitle !== 'Default Title'">
-                                {{item.variantTitle }}
-                            </div>
-                        </div>
-                        <div class="cart-item-price">${{ item.price.toFixed(2) }}</div>
-                        <button @click="removeFromCart(item.id)" class="remove-btn">Remove</button>
-                    </div>
-                    <div class="cart-total">
-                        Total: ${{ cartTotal.toFixed(2) }}
-                    </div>
-                    <button @click="handleCheckout" class="checkout-btn">Checkout</button>
-                </div>
-
-                <div v-else class="cart-empty">
-                    Cart is empty
-                </div>
-            </div>
-        </div>
 
     </div>
 </template>
@@ -98,7 +68,7 @@ const currentImageIndex = ref(0)
 const carouselInterval = ref(null)
 
 // Use global cart state
-const { cartItems, cartOpen, cartTotal, addToCart, removeFromCart, closeCart, createCheckout } = useCart()
+const { addToCart } = useCart()
 
 // Computed property to get popup images (excluding first image)
 const popupImages = computed(() => {
@@ -169,15 +139,6 @@ watch(showProductPopup, (newValue) => {
     }
 })
 
-// Checkout handling
-const handleCheckout = async () => {
-    const checkoutUrl = await createCheckout(shopifyDomain, shopifyToken)
-    if (checkoutUrl) {
-        window.open(checkoutUrl, '_blank')
-    } else {
-        alert('Error creating checkout. Please check console for details.')
-    }
-}
 
 const fetchProducts = async () => {
     try {

@@ -16,6 +16,7 @@
     background-color: rgba($color: #eeeeee, $alpha: 0.8);
 
     .story-popup-content {
+        position: relative;
         height: 66.666vh;
         margin: 0 20px;
         width: calc(100% - 40px);
@@ -79,6 +80,7 @@
 
         &.popup-red {
             background-color: var(--ca-primary);
+
             .text-content {
                 background-color: var(--ca-primary);
             }
@@ -88,18 +90,17 @@
 
     .product-purchase {
         margin-top: 3rem;
-        position: sticky;
-        top: 1rem;
     }
 
-
     &.half-width {
-        @media (min-width: 768px) {
-            width: calc(50vw - 20px);
-        }
-
-        .popup-text {
-            width: 100%;
+        justify-content: flex-start;
+        .story-popup-content {
+            @media (min-width: 768px) {
+                width: calc(50vw - 20px);
+            }
+            .popup-text {
+                width: 100%;
+            }
         }
     }
 }
