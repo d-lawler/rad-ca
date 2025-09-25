@@ -1,58 +1,45 @@
 <template>
-    <div v-editable="blok" class="single-project-container">
-        <!-- Project title (outside content container) -->
-        <h1 class="project-title-overlay">
-            <button class="project-title-button" @click="toggleProjectInfo()">
-                {{ blok.name || 'Project' }}
-                <span class="project-ino-button">(I)</span>
-            </button>
-        </h1>
-
-        <div class="project-content-expanded container content-expanded-visible"
-             @scroll="handleScroll">
-
-            <div class="project-content content-clicked">
-
-                <!-- Thumbnail -->
-                <div class="project-thumbnail thumbnail-visible">
+    <div v-editable="blok" class="projects-page single-project-page">
+        <div v-if="!isAtBottom" class="content-list-item">
+            <div class="content container additional-padding" id="scroll-anchor">
+                <!-- lets include the thumbnail here but with no extra class for position -->
+                <div class="backup-thumb">
                     <video v-if="blok.featured_video" :src="blok.featured_video.filename"
-                        autoplay muted loop playsinline class="project-featured-media">
+                        autoplay muted loop playsinline>
                     </video>
                     <NuxtImg v-else-if="blok.featured_image"
                         :src="blok.featured_image.filename"
-                        :alt="blok.featured_image.alt || blok.name" class="project-featured-media"
-                        loading="lazy" />
+                        :alt="blok.featured_image.alt || blok.name" />
                 </div>
 
-                <!-- Content blocks -->
-                <div v-if="blok.content && blok.content.length"
-                    class="project-content-blocks">
-                    <div v-for="block in blok.content" :key="block._uid" class="content-block">
-                        <!-- Handle ImageRow components -->
-                        <div v-if="block.component === 'ImageRow'" class="image-row" :class="[
-                            `image-row-${block.alignment || 'center'}`
-                        ]">
-                            <div v-for="imageItem in block.images" :key="imageItem._uid" class="image-item">
-                                <NuxtImg v-if="imageItem.component === 'ImageItem' && imageItem.image"
-                                    :src="imageItem.image.filename"
-                                    :alt="imageItem.image.alt || blok.name"
-                                    class="project-image"
-                                    loading="lazy" />
-                            </div>
-                        </div>
-
+                <div class="title" ref="titleElement" style="opacity: 1; transition: opacity 0.3s ease;">
+                    <h1 @click="toggleInfoPopup" style="cursor: pointer;">
+                        {{ blok.name }}
+                        <button class="info-button" @click="toggleInfoPopup">
+                            (I<span class="mobile">NFO</span>)
+                        </button>
+                    </h1>
+                </div>
+                <div class="images">
+                    <div v-for="block in blok.content" :key="block._uid">
+                        <StoryblokComponent :blok="block" />
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Project description popup -->
-        <Transition name="popup">
-            <div v-if="showProjectInfo" class="story-popup popup-left popup-white" @click="showProjectInfo = false">
+        <Transition name="blur-fade">
+            <div v-if="showInfoPopup" class="story-popup half-width" @click="showInfoPopup = false">
                 <div class="story-popup-content" @click.stop>
-                    <button class="close-btn" @click="showProjectInfo = false">&times;</button>
-                    <div v-if="blok.story_text"
-                         v-html="renderRichText(blok.story_text)" />
+                    <div class="popup-text">
+                        <div class="text-content">
+                            <h3>{{ blok.name }}</h3>
+                            <button class="close-btn" @click="showInfoPopup = false">&times;</button>
+                        </div>
+                        <div v-if="blok.story_text"
+                            v-html="renderRichText(blok.story_text)"></div>
+                    </div>
                 </div>
             </div>
         </Transition>
@@ -64,14 +51,13 @@ import { renderRichText } from '@storyblok/vue'
 import { ref } from 'vue'
 
 const props = defineProps({ blok: Object })
-const showProjectInfo = ref(false)
+const showInfoPopup = ref(false)
+const isAtBottom = ref(false)
+const titleElement = ref(null)
 
-const toggleProjectInfo = () => {
-    showProjectInfo.value = true
-}
-
-const handleScroll = async (event) => {
-    // Optional: Handle scroll behavior for single projects
-    // Could add scroll-to-top functionality or other interactions
+const toggleInfoPopup = () => {
+    console.log('Info button clicked, current state:', showInfoPopup.value)
+    showInfoPopup.value = !showInfoPopup.value
+    console.log('New state:', showInfoPopup.value)
 }
 </script>
