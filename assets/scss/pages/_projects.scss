@@ -68,7 +68,9 @@
         h1:hover {
             color: var(--ca-primary);
         }
-
+        @media (min-width: 768px) {
+            margin-left: 50px;
+        }
         @media (max-width: 768px) {
             h1 {
                 display: flex;
