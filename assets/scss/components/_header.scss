@@ -8,7 +8,7 @@
     z-index: 800;
     pointer-events: auto;
     background-color: transparent;
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color .7s ease-in-out;
 
     // Mobile-specific fixes for better fixed positioning
     @media (max-width: 768px) {
@@ -190,6 +190,7 @@
 body:not(.page-home) {
     .Header {
         background-color: #fff;
+        transition: background-color .7 ease-in-out;
     }
 }
 
