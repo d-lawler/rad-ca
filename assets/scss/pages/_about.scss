@@ -1,36 +1,68 @@
 @import '../partials/type';
 
+.page-about {
+
+    @media (min-width: 768px) {
+        overflow: hidden;
+    }
+}
+
 .about-page-grid {
-    display: grid;
-    grid-template-columns: 9fr 3fr;
-    gap: 6rem;
-    margin-top: 40vh;
-    padding-bottom: 16rem;
+    gap: 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    @media (min-width: 768px) {
+        height: calc(100vh - 60px);
+        overflow: hidden;
+    }
 
     @media (max-width: 768px) {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+        flex-direction: column;
     }
 
-    .exhibition-list {
-        @extend .type-caption !optional;
-        margin-bottom: 2rem;
-        
-        h2 {
-            margin-bottom: 1rem;
+    .about-main-content {
+        @extend .type-medium !optional;
+        width: 100%;
+        padding-top: 12rem;
+        padding-bottom: 9rem;
+
+        @media (min-width: 768px) {
+            overflow: scroll;
+            height: 100vh;
+            padding: 20% 0;
+            width: 70%;
+
         }
-        .exhibition-item {
-            font-weight: 400;
-            margin-bottom: 1rem;
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    .about-exhibitions-sidebar {
+        width: 100%;
+        padding-bottom: 9rem;
+
+        @media (min-width: 768px) {
+            width: 20%;
+            padding: 20% 0;
+            overflow: scroll;
+        }
+
+        .exhibition-list {
+            @extend .type-caption !optional;
+            margin-bottom: 2rem;
+
+            h2 {
+                margin-bottom: 1rem;
+            }
+
+            .exhibition-item {
+                font-weight: 400;
+                margin-bottom: 1rem;
+            }
         }
     }
 }
-
-.about-main-content {
-    @extend .type-medium !optional;
-
-    p {
-        margin-bottom: 1.5rem;
-    }
-}
-
