@@ -19,18 +19,26 @@
                                     <h3>{{ exhibition.story.content.heading }}</h3>
                                 </div>
                                 <div v-if="exhibition.story.content.start_date">
-                                    <span class="timeplace">Date ({{ exhibition.status }})<br />
-                                        <span v-if="exhibition.story.content.end_date">
-                                            {{ formatDate(exhibition.story.content.start_date) }}
-                                        </span>
-                                        <span v-if="exhibition.story.content.end_date">
-                                            - {{ formatDate(exhibition.story.content.end_date) }}
-                                        </span>
-                                    </span>
+
+                                    <div class="timeplace">
+                                        <div>
+                                            Date&nbsp;({{ exhibition.status }})
+                                        </div>
+                                        <div>
+                                            <span v-if="exhibition.story.content.end_date">
+                                                {{ formatDate(exhibition.story.content.start_date) }}
+                                            </span>
+                                            <span v-if="exhibition.story.content.end_date">
+                                                &ndash; {{ formatDate(exhibition.story.content.end_date) }}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div v-if="exhibition.story.content?.location" class="exhibition-location">
-                                    <span class="timeplace">Location <br />
-                                        {{ exhibition.story.content.location }}</span>
+                                    <div class="timeplace">
+                                        <span>Location</span>
+                                        <span class="location-item">{{ exhibition.story.content.location }}</span>
+                                    </div>
                                 </div>
                                 <div v-if="exhibition.story.content?.description"
                                     class="exhibition-description type-body"
@@ -96,6 +104,7 @@ const popupImageIndex = ref(0)
 const popupCarouselInterval = ref(null)
 const carouselIndexes = ref({})
 const carouselIntervals = ref({})
+let observer = null
 
 const storyblokApi = useStoryblokApi()
 
@@ -241,6 +250,32 @@ const openPopup = (exhibition) => {
     })
 }
 
+// Custom inview animation for grid items (copied from ImageGrid)
+const setupInviewAnimations = () => {
+    observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1'
+                entry.target.style.filter = 'blur(0rem)'
+            }
+        })
+    }, {
+        threshold: 0.1,
+        rootMargin: '50px'
+    })
+
+    // Observe all exhibition items
+    const exhibitionItems = document.querySelectorAll('.exhibition-item')
+    exhibitionItems.forEach(item => {
+        // Set initial state
+        item.style.opacity = '0'
+        item.style.filter = 'blur(2rem)'
+        item.style.transition = 'opacity 0.8s ease, filter 0.8s ease'
+
+        observer.observe(item)
+    })
+}
+
 
 // Watch for popup closing to stop carousel
 watch(showPopup, (newValue) => {
@@ -307,6 +342,14 @@ onMounted(async () => {
                     startCarousel(exhibition.story.uuid, images.length)
                 }
             })
+
+            // Setup custom inview animations after exhibitions are loaded
+            if (process.client) {
+                await nextTick()
+                setTimeout(() => {
+                    setupInviewAnimations()
+                }, 100)
+            }
         } catch (error) {
             console.error('Error fetching exhibitions:', error)
         }
@@ -325,5 +368,10 @@ onUnmounted(() => {
 
     // Clean up popup carousel interval
     stopPopupCarousel()
+
+    // Clean up intersection observer
+    if (observer) {
+        observer.disconnect()
+    }
 })
 </script>

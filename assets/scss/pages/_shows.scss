@@ -86,7 +86,14 @@
 
             .exhibition-heading {
                 @extend .type-body-m !optional;
+                transition: all .5s ease-in-out;
             }
+        }
+
+        &:hover .exhibition-heading {
+            text-indent: 2rem;
+            color: var(--ca-primary);
+            transition: all .5s ease-in-out;
         }
 
         .exhibition-image-wrapper {
@@ -137,6 +144,11 @@
 
 .timeplace {
     @extend .type-caption !optional;
+    display: flex;
+    flex-direction: column;
+    .location-item {
+        text-transform: uppercase;
+    }
 }
 
 .exhibition-heading {
