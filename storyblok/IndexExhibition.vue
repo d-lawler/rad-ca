@@ -60,7 +60,7 @@
         </div>
         <Transition name="blur-fade">
             <div v-if="showPopup" class="story-popup popup-red popup-right wide tall" @click="showPopup = false">
-                <div class="story-popup-content" @click.stop>
+                <div class="story-popup-content popup-red" @click.stop>
                     <div v-if="selectedExhibition && getExhibitionImages(selectedExhibition.story.content).length"
                         class="popup-images">
                         <div v-for="(imageUrl, index) in getExhibitionImages(selectedExhibition.story.content)"

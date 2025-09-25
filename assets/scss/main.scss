@@ -14,13 +14,13 @@
 @use 'components/header';
 @use 'components/footer';
 @use 'components/popup';
+@use 'components/cart';
 
 // ============================================================================
 // Storyblok Component Styles
 @use 'storyblok/asset';
 @use 'storyblok/assetgroup';
 @use 'storyblok/content';
-
 
 // ============================================================================
 // Storyblok Page Styles

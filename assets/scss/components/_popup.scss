@@ -16,7 +16,7 @@
     background-color: rgba($color: #eeeeee, $alpha: 0.8);
 
     .story-popup-content {
-        height: 66vh;
+        height: 66.666vh;
         margin: 0 20px;
         width: calc(100% - 40px);
         overflow: scroll;
@@ -39,18 +39,20 @@
         }
 
         .popup-text {
-            top: 0;
             width: 50%;
-            padding: 20px;
-            position: sticky;
+            padding: 0 20px;
             @extend .type-body-m !optional;
 
             height: fit-content;
             max-height: 100vh;
-            padding-bottom: 1rem;
+            padding-bottom: 10rem;
 
-            h3 {
+            .text-content {
+                background-color: #fff;
                 margin-bottom: 20px;
+                position: sticky;
+                padding: 20px 0;
+                top: 0;
             }
         }
 
@@ -59,7 +61,7 @@
             justify-content: flex-end;
             width: calc(100% - 20px);
             margin-right: 0;
-            
+
             .popup-images,
             .popup-text {
                 width: 100%;
@@ -70,15 +72,24 @@
         .close-btn {
             font-size: 50px;
             top: 10px;
-            right: 20px;
+            right: 0;
             z-index: 950;
             position: absolute;
         }
+
+        &.popup-red {
+            background-color: var(--ca-primary);
+            .text-content {
+                background-color: var(--ca-primary);
+            }
+        }
+
     }
 
     .product-purchase {
         margin-top: 3rem;
-        height: 20vh;
+        position: sticky;
+        top: 1rem;
     }
 
 
@@ -86,7 +97,6 @@
         @media (min-width: 768px) {
             width: calc(50vw - 20px);
         }
-        
 
         .popup-text {
             width: 100%;
