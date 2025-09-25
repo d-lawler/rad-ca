@@ -46,8 +46,9 @@
 
     .exhibition-item {
         display: block;
-        padding: 1rem 0;
+        padding: 0.5rem 0;
         border-top: solid 1px #000;
+        border-bottom: solid 1px #000;
         margin-bottom: 12rem;
 
         @media (max-width: 768px) {
@@ -130,8 +131,7 @@
 }
 
 .timeplace {
-    font-family: 'GT America Mono', monospace;
-    font-weight: 500;
+    @extend .type-caption !optional;
 }
 
 .exhibition-heading {
@@ -141,6 +141,7 @@
 
 .exhibition-description {
     margin-top: 60px;
+    max-width: 80%;
 
     @media (max-width: 768px) {
         display: none;
@@ -153,7 +154,7 @@
 
 .exhibition-size-small {
     .exhibition-image-wrapper {
-        height: 25vh;
+        height: 33vh;
 
         @media (max-width: 768px) {
             height: 45vw;
@@ -173,7 +174,7 @@
 
 .exhibition-size-large {
     .exhibition-image-wrapper {
-        height: 60vh;
+        height: 66vh;
 
         @media (max-width: 768px) {
             height: 45vw;
