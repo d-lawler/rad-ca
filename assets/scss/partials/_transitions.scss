@@ -58,16 +58,33 @@
     transition: opacity 0.7s cubic-bezier(.4, 0, .2, 1), filter 0.7s cubic-bezier(.4, 0, .2, 1);
 }
 
+.blur-fade-enter-active .story-popup-backdrop,
+.blur-fade-leave-active .story-popup-backdrop {
+    transition: opacity 0.7s cubic-bezier(.4, 0, .2, 1), backdrop-filter 0.7s cubic-bezier(.4, 0, .2, 1);
+}
+
 .blur-fade-enter-from,
 .blur-fade-leave-to {
     opacity: 0;
     filter: blur(2rem);
 }
 
+.blur-fade-enter-from .story-popup-backdrop,
+.blur-fade-leave-to .story-popup-backdrop {
+    opacity: 0;
+    backdrop-filter: blur(0);
+}
+
 .blur-fade-enter-to,
 .blur-fade-leave-from {
     opacity: 1;
     filter: blur(0);
+}
+
+.blur-fade-enter-to .story-popup-backdrop,
+.blur-fade-leave-from .story-popup-backdrop {
+    opacity: 1;
+    backdrop-filter: blur(2rem);
 }
 
 // Popup transitions
