@@ -66,6 +66,7 @@ const showProductPopup = ref(false)
 const selectedProduct = ref(null)
 const currentImageIndex = ref(0)
 const carouselInterval = ref(null)
+let observer = null
 
 // Use global cart state
 const { addToCart } = useCart()
@@ -130,6 +131,32 @@ const stopCarousel = () => {
 const openProductPopup = (product) => {
     selectedProduct.value = product
     showProductPopup.value = true
+}
+
+// Custom inview animation for grid items (copied from ImageGrid)
+const setupInviewAnimations = () => {
+    observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1'
+                entry.target.style.filter = 'blur(0rem)'
+            }
+        })
+    }, {
+        threshold: 0.1,
+        rootMargin: '50px'
+    })
+
+    // Observe all product items
+    const productItems = document.querySelectorAll('.product-item')
+    productItems.forEach(item => {
+        // Set initial state
+        item.style.opacity = '0'
+        item.style.filter = 'blur(2rem)'
+        item.style.transition = 'opacity 0.8s ease, filter 0.8s ease'
+
+        observer.observe(item)
+    })
 }
 
 // Watch for popup closing
@@ -215,6 +242,14 @@ const fetchProducts = async () => {
 
         products.value = data.data.products.edges.map(edge => edge.node)
         console.log('✅ Products loaded:', products.value.length, products.value.map(p => p.title))
+
+        // Setup custom inview animations after products are loaded
+        if (process.client) {
+            await nextTick()
+            setTimeout(() => {
+                setupInviewAnimations()
+            }, 100)
+        }
     } catch (error) {
         console.error('Error fetching products:', error)
     } finally {
@@ -229,5 +264,8 @@ onMounted(() => {
 
 onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll)
+    if (observer) {
+        observer.disconnect()
+    }
 })
 </script>
