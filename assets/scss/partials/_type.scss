@@ -119,32 +119,32 @@
 // Navigation Link Styles
 .type-nav {
     font-family: 'GT America Mono', monospace;
-    font-weight: 500; // Medium
+    font-weight: 500;
     font-size: 20px;
     line-height: 24px;
-    letter-spacing: 0.2em; // 20%
+    letter-spacing: 0.2em;
     text-transform: uppercase;
 }
 
 .type-caption {
     font-family: 'GT America Mono', monospace;
-    font-weight: 500; // Medium
+    font-weight: 500;
     font-size: 14px;
-    line-height: 120%; // 16.8px
-    letter-spacing: 0.1em; // 10%
+    line-height: 120%;
+    letter-spacing: 0.1em;
 }
 
 .type-body-s {
     font-family: 'FH Oscar', sans-serif;
-    font-weight: 700; // Bold
+    font-weight: 700;
     font-size: 18px;
-    line-height: 1.25; // 125%
-    letter-spacing: -0.02em; // -2%
+    line-height: 1.25;
+    letter-spacing: -0.02em;
 }
 
 .type-body-m {
     font-family: 'FH Oscar', sans-serif;
-    font-weight: 700; // Bold
+    font-weight: 700;
     font-size: 36px;
     line-height: 100%;
     letter-spacing: 0;
@@ -157,7 +157,7 @@
 .type-body-l {
     font-kerning: optical;
     font-family: 'FH Oscar', sans-serif;
-    font-weight: 700; // Bold
+    font-weight: 700;
     font-size: 48px;
     line-height: 100%;
     letter-spacing: 0;
@@ -179,10 +179,10 @@
     text-rendering: optimizeSpeed;
     font-kerning: optical;
     font-family: 'FH Oscar', sans-serif;
-    font-weight: 600; // Semi Bold
+    font-weight: 600; 
     font-size: 50px;
     line-height: 100%;
-    letter-spacing: 0.025em; // 2.5%
+    letter-spacing: 0.025em; 
 
     @media (max-width: 768px) {
         font-size: 30px;
@@ -193,10 +193,10 @@
     text-rendering: optimizeSpeed;
     font-kerning: optical;
     font-family: 'FH Oscar', sans-serif;
-    font-weight: 600; // Semi Bold
+    font-weight: 600; 
     font-size: 76px;
-    line-height: 1; // 100%
-    letter-spacing: 0.025em; // 2.5%
+    line-height: 1; 
+    letter-spacing: 0.025em; 
 
     @media (max-width: 768px) {
         font-size: 36px;
@@ -207,12 +207,12 @@
     text-rendering: optimizeSpeed;
     font-kerning: optical;
     font-family: 'FH Oscar', sans-serif;
-    font-weight: 700; // Semi Bold
-    font-size: 84px;
-    line-height: 1; // 100%
-    letter-spacing: 0.025em; // 2.5%
+    font-weight: 700;
+    font-size: 96px;
+    line-height: 1; 
+    letter-spacing: 0.025em; 
 
     @media (max-width: 768px) {
-        font-size: 58px;
+        font-size: 64px;
     }
 }

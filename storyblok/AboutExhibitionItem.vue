@@ -1,27 +1,36 @@
 <template>
     <div
         v-editable="blok"
-        class="exhibition-item about-exhibition-item"
+        class="about-exhibition-item"
         @mousemove="handleMouseMove"
         @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave"
         ref="itemRef"
     >
-        <div v-if="blok.text" class="exhibition-text">
-            {{ blok.text }}
+        <div v-if="blok.rich_text" class="about-exhibition-text">
+            <div v-html="renderRichText(blok.rich_text)"></div>
         </div>
         <div
+            v-if="blok.image?.filename"
             class="about-exhibition-image"
             :class="{ 'following-cursor': isHovering }"
             :style="imageStyle"
             ref="imageRef"
         >
-            <img src="https://picsum.photos/200/300" alt="">
+            <NuxtImg
+                :src="blok.image.filename"
+                :alt="blok.image.alt || 'Exhibition image'"
+                loading="lazy"
+                format="webp"
+                quality="80"
+            />
         </div>
     </div>
 </template>
 
 <script setup>
+import { renderRichText } from '@storyblok/vue'
+
 const props = defineProps({ blok: Object })
 
 const itemRef = ref(null)

@@ -74,7 +74,7 @@
                         <div v-for="(imageUrl, index) in getExhibitionImages(selectedExhibition.story.content)"
                             :key="index" class="image" :class="{ 'active': index === popupImageIndex }">
                             <NuxtImg :src="imageUrl" :alt="`${selectedExhibition.story.name} image ${index + 1}`"
-                                format="webp" quality="20" loading="lazy" />
+                                format="webp" quality="70" loading="lazy" />
                         </div>
                     </div>
                     <div class="popup-text">

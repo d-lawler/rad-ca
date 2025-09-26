@@ -31,7 +31,7 @@
         @media (min-width: 768px) {
             overflow: scroll;
             height: 100vh;
-            padding: 20% 0;
+            padding: 25% 0;
             width: 70%;
 
         }
@@ -47,11 +47,12 @@
 
         @media (min-width: 768px) {
             width: 20%;
-            padding: 20% 0;
+            padding: 25% 0;
             overflow: scroll;
         }
 
-        .exhibition-list {
+        .about-exhibition-list {
+            
             @extend .type-caption !optional;
             margin-bottom: 2rem;
 
@@ -59,10 +60,37 @@
                 margin-bottom: 1rem;
             }
 
-            .exhibition-item {
+            .about-exhibition-item {
                 font-weight: 400;
                 margin-bottom: 1rem;
+                transition: color 0.3s ease;
+
+                .about-exhibition-image {
+                    width: 200px;
+                    position: fixed;
+                    opacity: 0;
+                    filter: blur(2rem);
+                    transition: opacity 0.3s ease, filter 0.3s ease;
+                }
+
+                &:hover {
+                    color: var(--ca-primary);
+                    transition: color 0.3s ease;
+                    .about-exhibition-image {
+                        @media (min-width: 768px) {
+                            opacity: 1;
+                            filter: blur(0);
+                            transition: opacity 0.3s ease, filter 0.3s ease;
+                        }
+                    }
+                }
             }
         }
     }
+}
+.about-exhibition-image.following-cursor {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: none;
+    transition: opacity 0.2s ease, filter 0.2s ease;
 }
