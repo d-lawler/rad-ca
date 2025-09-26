@@ -26,6 +26,12 @@
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 
 const props = defineProps({ blok: Object })
+
+// SEO Meta Tags
+useSeo(props.blok, {
+    fallbackTitle: 'Christopher Anderson',
+    fallbackDescription: 'Filmmaker and Photographer.'
+})
 const gridInstances = ref([])
 const gridRefs = ref([])
 const observer = ref(null)

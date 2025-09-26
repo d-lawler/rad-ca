@@ -58,6 +58,12 @@
 <script setup>
 const props = defineProps({ blok: Object })
 
+// SEO Meta Tags
+useSeo(props.blok, {
+    fallbackTitle: 'Shop - Christopher Anderson Store',
+    fallbackDescription: 'Shop artwork, prints, and merchandise from Christopher Anderson. Discover unique pieces and limited edition items from the artist.'
+})
+
 const products = ref([])
 const loading = ref(true)
 const titleElement = ref(null)

@@ -17,7 +17,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       shopifyDomain: process.env.SHOPIFY_DOMAIN,
-      shopifyStorefrontToken: process.env.SHOPIFY_STOREFRONT_API_ACCESS_TOKEN
+      shopifyStorefrontToken: process.env.SHOPIFY_STOREFRONT_API_ACCESS_TOKEN,
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://localhost:3002'
     }
   },
   postcss: {

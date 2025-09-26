@@ -18,4 +18,10 @@
 import { renderRichText } from '@storyblok/vue'
 
 const props = defineProps({ blok: Object })
+
+// SEO Meta Tags
+useSeo(props.blok, {
+    fallbackTitle: 'About Christopher Anderson - Artist Biography',
+    fallbackDescription: 'Learn about Christopher Anderson, contemporary artist and photographer. Discover his background, artistic vision, and creative journey.'
+})
 </script>
