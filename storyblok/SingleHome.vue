@@ -29,7 +29,7 @@ const props = defineProps({ blok: Object })
 
 // SEO Meta Tags
 useSeo(props.blok, {
-    fallbackTitle: 'Christopher Anderson',
+    fallbackTitle: '',
     fallbackDescription: 'Filmmaker and Photographer.'
 })
 const gridInstances = ref([])

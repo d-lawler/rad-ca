@@ -11,7 +11,7 @@
 
 // Set up default site-wide SEO meta tags
 useHead({
-    titleTemplate: '%s - Christopher Anderson',
+    titleTemplate: 'Christopher Anderson %s',
     meta: [
         { name: 'author', content: 'Christopher Anderson' },
         { property: 'og:site_name', content: 'Christopher Anderson' },    ]
@@ -37,9 +37,4 @@ watch(() => route.path, () => {
         applyBodyClasses()
     })
 })
-
-// Log layout usage in development
-if (process.dev) {
-    console.log('🏗️ Default layout loaded - Site-wide SEO and body classes applied')
-}
 </script>
