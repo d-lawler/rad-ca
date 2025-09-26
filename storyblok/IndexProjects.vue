@@ -77,6 +77,29 @@ const storyblokApi = useStoryblokApi()
 const route = useRoute()
 const router = useRouter()
 
+// Register popup close handler and page reset handler for navigation
+const { registerPopupCloseHandler, registerPageResetHandler } = usePagePopups()
+const unregisterPopupHandler = registerPopupCloseHandler(() => {
+    showInfoPopup.value = false
+})
+
+// Register page reset handler to clear selected project and URL queries
+const unregisterPageResetHandler = registerPageResetHandler('/projects', () => {
+    // Reset to basic view
+    selectedProject.value = null
+    hoveredProject.value = null
+    showInfoPopup.value = false
+
+    // Clear URL query parameters
+    router.push({ path: route.path, query: {} })
+
+    // Reset title and scroll position
+    if (titleElement.value) {
+        titleElement.value.style.opacity = '1'
+    }
+    window.scrollTo(0, 0)
+})
+
 const selectProject = (project) => {
     selectedProject.value = project
 
@@ -241,5 +264,13 @@ onMounted(async () => {
 
 onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll)
+    // Clean up popup handler
+    if (unregisterPopupHandler) {
+        unregisterPopupHandler()
+    }
+    // Clean up page reset handler
+    if (unregisterPageResetHandler) {
+        unregisterPageResetHandler()
+    }
 })
 </script>

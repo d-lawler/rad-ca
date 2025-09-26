@@ -4,7 +4,7 @@
 
             <!-- Desktop CA logo + Mobile header -->
             <div class="flex items-center space-x-4 nav">
-                <NuxtLink to="/" class="ca">CA</NuxtLink>
+                <NuxtLink to="/" class="ca" @click="handleNavClick">CA</NuxtLink>
                 <!-- Mobile hamburger - only visible on mobile -->
                 <button @click="toggleMobileMenu" class="hamburger-menu">
                     <span class="hamburger-line"></span>
@@ -14,9 +14,9 @@
 
             <!-- Desktop navigation - hidden on mobile -->
             <div class="flex items-center justify-center space-x-4 nav link-group">
-                <NuxtLink to="/books">Books</NuxtLink>
-                <NuxtLink to="/projects">Index</NuxtLink>
-                <NuxtLink to="/stuff">Stuff</NuxtLink>
+                <NuxtLink to="/books" @click="handleBooksNavClick">Books</NuxtLink>
+                <NuxtLink to="/projects" @click="handleProjectsNavClick">Index</NuxtLink>
+                <NuxtLink to="/stuff" @click="handleNavClick">Stuff</NuxtLink>
             </div>
             <div class="flex items-center justify-end space-x-4 nav">
                 <ClientOnly>
@@ -24,15 +24,15 @@
                         Cart:{{ cartCount }}
                     </button>
                 </ClientOnly>
-                <NuxtLink to="/about">About</NuxtLink>
+                <NuxtLink to="/about" @click="handleNavClick">About</NuxtLink>
             </div>
 
             <!-- Mobile navigation content - appears when menu is open -->
             <div class="mobile-nav-content">
                 <div class="link-group">
-                    <NuxtLink to="/books" @click="closeMobileMenu">Books</NuxtLink>
-                    <NuxtLink to="/projects" @click="closeMobileMenu">Index</NuxtLink>
-                    <NuxtLink to="/stuff" @click="closeMobileMenu">Stuff</NuxtLink>
+                    <NuxtLink to="/books" @click="handleMobileBooksNavClick">Books</NuxtLink>
+                    <NuxtLink to="/projects" @click="handleMobileProjectsNavClick">Index</NuxtLink>
+                    <NuxtLink to="/stuff" @click="handleMobileNavClick">Stuff</NuxtLink>
                     <ClientOnly>
                         <button v-if="cartCount > 0" @click="toggleCart" class="cart-link">
                             Cart: {{ cartCount }}
@@ -40,7 +40,7 @@
                     </ClientOnly>
                 </div>
                 <div class="nav">
-                    <NuxtLink to="/about" @click="closeMobileMenu">About</NuxtLink>
+                    <NuxtLink to="/about" @click="handleMobileNavClick">About</NuxtLink>
                 </div>
             </div>
 
@@ -50,6 +50,9 @@
 
 <script setup>
 const { cartCount, toggleCart } = useCart()
+const { closeAllPopups, resetPageToBasicView } = usePagePopups()
+const router = useRouter()
+const route = useRoute()
 
 // Mobile menu state
 const isMobileMenuOpen = ref(false)
@@ -74,8 +77,59 @@ const closeMobileMenu = () => {
     }
 }
 
+// Handle navigation clicks - close any open popups
+const handleNavClick = () => {
+    closeAllPopups()
+}
+
+// Handle Books navigation - reset to basic view if already on books page
+const handleBooksNavClick = (event) => {
+    if (route.path === '/books') {
+        event.preventDefault()
+        resetPageToBasicView('/books')
+    } else {
+        closeAllPopups()
+    }
+}
+
+// Handle Projects navigation - reset to basic view if already on projects page
+const handleProjectsNavClick = (event) => {
+    if (route.path === '/projects') {
+        event.preventDefault()
+        resetPageToBasicView('/projects')
+    } else {
+        closeAllPopups()
+    }
+}
+
+// Handle mobile navigation clicks - close mobile menu AND handle page resets
+const handleMobileBooksNavClick = (event) => {
+    closeMobileMenu()
+    if (route.path === '/books') {
+        event.preventDefault()
+        resetPageToBasicView('/books')
+    } else {
+        closeAllPopups()
+    }
+}
+
+const handleMobileProjectsNavClick = (event) => {
+    closeMobileMenu()
+    if (route.path === '/projects') {
+        event.preventDefault()
+        resetPageToBasicView('/projects')
+    } else {
+        closeAllPopups()
+    }
+}
+
+// Handle other mobile navigation clicks
+const handleMobileNavClick = () => {
+    closeMobileMenu()
+    closeAllPopups()
+}
+
 // Close mobile menu on route change
-const router = useRouter()
 router.afterEach(() => {
     closeMobileMenu()
 })
