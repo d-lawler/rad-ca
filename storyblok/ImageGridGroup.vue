@@ -13,7 +13,7 @@
                 :aria-label="media.alt || `Video ${index + 1}`"
             />
 
-            <!-- Image handling with NuxtImg -->
+            <!-- Image handling -->
             <NuxtImg
                 v-else
                 :src="media.filename"
