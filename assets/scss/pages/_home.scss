@@ -6,6 +6,24 @@
     z-index: 0;
 }
 
+// Page-specific styles using body classes
+body.page-home {
+    // Homepage-specific styles can go here
+
+    // Device-specific adjustments for homepage
+    &.mobile-device .ca-wordmark {
+        // Mobile-specific wordmark styles
+    }
+
+    &.desktop-device .ca-wordmark {
+        // Desktop-specific wordmark styles
+    }
+
+    &.touch-device {
+        // Touch device specific styles
+    }
+}
+
 .ca-wordmark {
     top: 0;
     left: 0;
