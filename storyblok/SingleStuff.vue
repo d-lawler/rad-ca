@@ -60,8 +60,8 @@ const props = defineProps({ blok: Object })
 
 // SEO Meta Tags
 useSeo(props.blok, {
-    fallbackTitle: 'Shop - Christopher Anderson Store',
-    fallbackDescription: 'Shop artwork, prints, and merchandise from Christopher Anderson. Discover unique pieces and limited edition items from the artist.'
+    fallbackTitle: 'Store',
+    fallbackDescription: 'Shop artwork, prints, and merchandise.'
 })
 
 const products = ref([])
@@ -175,7 +175,7 @@ watch(showProductPopup, (newValue) => {
 
 const fetchProducts = async () => {
     try {
-        console.log('🔍 Fetching products with:', { shopifyDomain, shopifyToken })
+        // console.log('🔍 Fetching products with:', { shopifyDomain, shopifyToken })
 
         if (!shopifyDomain) {
             console.error('SHOPIFY_DOMAIN environment variable is missing')
@@ -188,7 +188,7 @@ const fetchProducts = async () => {
         }
 
         const url = `https://${shopifyDomain}/api/2023-10/graphql.json`
-        console.log('🚀 Making request to:', url)
+        // console.log('🚀 Making request to:', url)
 
         const query = `
             query {
@@ -247,7 +247,7 @@ const fetchProducts = async () => {
         }
 
         products.value = data.data.products.edges.map(edge => edge.node)
-        console.log('✅ Products loaded:', products.value.length, products.value.map(p => p.title))
+        // console.log('✅ Products loaded:', products.value.length, products.value.map(p => p.title))
 
         // Setup custom inview animations after products are loaded
         if (process.client) {
