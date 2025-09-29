@@ -2,7 +2,6 @@
     <div v-editable="blok" class="projects-page single-project-page">
         <div v-if="!isAtBottom" class="content-list-item">
             <div class="content container additional-padding" id="scroll-anchor">
-                <!-- lets include the thumbnail here but with no extra class for position -->
                 <div class="backup-thumb">
                     <video v-if="blok.featured_video" :src="blok.featured_video.filename"
                         autoplay muted loop playsinline>

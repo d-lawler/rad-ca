@@ -10,8 +10,8 @@
         </Transition>
         <div v-if="!isAtBottom" class=" content-list-item">
             <Transition name="fade-blur" mode="out-in">
-                <div v-if="hoveredProject?.content?.featured_image && !selectedProject" class="thumbnail"
-                    :key="(hoveredProject || selectedProject)?.uuid">
+                <div v-if="hoveredProject?.content?.featured_image && !selectedProject && hoveredProject" class="thumbnail"
+                    :key="hoveredProject?.uuid">
                     <NuxtImg :src="hoveredProject.content.featured_image.filename"
                         :alt="hoveredProject.content.featured_image.alt"
                         :class="randomPositionClass" />
@@ -20,13 +20,10 @@
             <Transition name="fade-blur" mode="out-in">
                 <div v-if="selectedProject" class="content container additional-padding"
                     :key="selectedProject?.uuid" id="scroll-anchor">
-
-                    <!-- lets include the thumbnail here but with no extra class for position -->
                     <div class="backup-thumb">
                         <NuxtImg :src="selectedProject.content.featured_image.filename"
                             :alt="selectedProject.content.featured_image.alt" />
                     </div>
-
                     <div class="title" ref="titleElement" style="opacity: 0; transition: opacity 0.3s ease;">
                         <h1 @click="toggleInfoPopup" style="cursor: pointer;">
                             {{ selectedProject?.content?.name }}
@@ -101,6 +98,8 @@ const unregisterPageResetHandler = registerPageResetHandler('/projects', () => {
 })
 
 const selectProject = (project) => {
+    // Clear hover state immediately on click
+    hoveredProject.value = null
     selectedProject.value = project
 
     // Update URL with project slug
@@ -195,6 +194,7 @@ const resetView = () => {
     selectedProject.value = null
     hoveredProject.value = null
     showInfoPopup.value = false
+    randomPositionClass.value = '' // Also clear the random position class
 
     // Reset title opacity
     if (titleElement.value) {
