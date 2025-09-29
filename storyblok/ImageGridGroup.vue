@@ -6,6 +6,14 @@
         :class="{ 'grid-transitioning': isTransitioning }"
         :style="{ opacity: isTransitioning ? 0.3 : 1 }"
     >
+        <!-- Grid group title for arranged mode -->
+        <div
+            v-if="gridMode === 'arranged'"
+            class="grid-group-title"
+        >
+            <span class="grid-group-title-text">{{ blok.title || 'CMS Heading' }}</span>
+        </div>
+
         <template v-for="(media, index) in (Array.isArray(blok.images) ? blok.images : [blok.images])" :key="`${blok._uid}-${index}`">
             <!-- Video handling -->
             <video

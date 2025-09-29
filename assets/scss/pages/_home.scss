@@ -49,20 +49,12 @@
 
     // Contact sheet mode adjustments
     &:has(.grid-image.arranged) {
-        padding: 0.5rem 1rem 0 1rem;
-
-        @media (max-width: 768px) {
-            padding: 0.25rem 0.5rem 0 0.5rem;
-        }
+        padding: 0;
     }
 
     // Fallback for browsers that don't support :has()
     &.arranged-mode {
-        padding: 0.5rem 1rem 0 1rem;
-
-        @media (max-width: 768px) {
-            padding: 0.25rem 0.5rem 0 0.5rem;
-        }
+        padding: 0;
     }
 }
 
@@ -169,13 +161,9 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-        align-items: flex-start;
-        margin: 0.5rem;
+        align-items: center;
+        margin: 0;
         gap: 0;
-
-        @media (max-width: 768px) {
-            margin: 0.25rem;
-        }
 
         // Override all scattered positioning for arranged mode
         img, video {
@@ -280,13 +268,9 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-        align-items: flex-start;
-        margin: 0.5rem;
+        align-items: center;
+        margin: 0;
         gap: 0;
-
-        @media (max-width: 768px) {
-            margin: 0.25rem;
-        }
 
         // Override all scattered positioning for arranged mode
         img, video {
@@ -308,4 +292,52 @@
             }
         }
     }
+}
+
+// Grid group title for arranged mode
+.grid-group-title {
+    width: 8vw;
+    min-height: 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.25rem;
+    flex-shrink: 0;
+
+    @media (max-width: 768px) {
+        width: 20vw;
+        min-height: 15vw;
+        margin: 0.2rem;
+    }
+
+    @media (max-width: 480px) {
+        width: 30vw;
+        min-height: 22vw;
+        margin: 0.15rem;
+    }
+}
+
+.grid-group-title-text {
+    @extend .type-caption !optional;
+
+    font-size: 0.7rem;
+    color: #333;
+    text-align: center;
+    line-height: 1.2;
+    border-bottom: 1px solid transparent;
+    transition: color 0.3s ease-in-out, border-bottom-color 0.3s ease-in-out;
+
+    @media (max-width: 768px) {
+        font-size: 0.65rem;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 0.6rem;
+    }
+}
+
+// Hover styles for grid group
+.image-grid-group:hover .grid-group-title-text {
+    color: var(--ca-primary);
+    border-bottom-color: var(--ca-primary);
 }
