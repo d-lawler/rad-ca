@@ -5,7 +5,8 @@
                 <div class="homepage-lightbox-content" @click.stop>
                     <div class="lightbox-images">
                         <ImageCarousel
-                            v-if="images && images.length > 1"
+                            v-if="images && images.length > 1 && carouselData"
+                            :key="`lightbox-carousel-${carouselKey}`"
                             :blok="carouselData"
                             @slideChange="onSlideChange"
                         />
@@ -54,34 +55,53 @@ watch(isOpen, (newValue) => {
     }
 }, { immediate: true })
 
-// Local reactive state
-const localCurrentIndex = ref(0)
+// Local state for carousel management
+const stableCarouselData = ref(null)
+const carouselKey = ref(0)
 
-// Sync local index with global state
-watch(currentIndex, (newIndex) => {
-    localCurrentIndex.value = newIndex
-}, { immediate: true })
-
-// Current image computed
+// Current image computed directly from global state
 const currentImage = computed(() => {
-    return images.value[localCurrentIndex.value]
+    if (!images.value || !images.value.length) return null
+    return images.value[currentIndex.value]
 })
 
-// Carousel data for ImageCarousel component
-const carouselData = computed(() => ({
-    images: images.value.map(image => ({
-        asset: {
-            filename: image.filename,
-            alt: image.alt
-        },
-        _uid: `lightbox-carousel-${Math.random()}`
-    })),
-    initialSlide: currentIndex.value
-}))
+// Create stable carousel data when lightbox opens
+watch([isOpen, images], ([isOpenValue, imagesValue]) => {
+    if (isOpenValue && imagesValue && imagesValue.length > 0) {
+        console.log('Creating stable carousel data with initialSlide:', currentIndex.value)
 
-// Handle slide changes from carousel
+        // Create new carousel data with current index as initial slide
+        stableCarouselData.value = {
+            images: imagesValue.map((image, index) => ({
+                asset: {
+                    filename: image.filename,
+                    alt: image.alt
+                },
+                _uid: `lightbox-carousel-${index}`
+            })),
+            initialSlide: currentIndex.value,
+            // Add carousel settings optimized for lightbox
+            autoplay: false, // Never autoplay in lightbox
+            autoplay_interval: 0,
+            // Force infinite scrolling for seamless navigation
+            wrapAround: true,
+            // Normal transition speed for user interactions
+            transition: 500,
+            // Ensure items scroll one at a time for infinite feel
+            itemsToScroll: 1
+        }
+
+        // Force carousel recreation by updating key
+        carouselKey.value++
+    }
+}, { immediate: true })
+
+// Carousel data - use stable reference
+const carouselData = computed(() => stableCarouselData.value)
+
+// Handle slide changes from carousel - only update global state
 const onSlideChange = (slideIndex) => {
-    localCurrentIndex.value = slideIndex
+    console.log('Carousel slide changed to:', slideIndex)
     currentIndex.value = slideIndex
 }
 
@@ -90,21 +110,15 @@ const closeLightbox = () => {
     closeGlobalLightbox()
 }
 
-// Keyboard navigation
+// Keyboard navigation - let the carousel handle arrow keys
 const handleKeydown = (event) => {
     if (!isOpen.value) return
 
     if (event.key === 'Escape') {
         closeLightbox()
-    } else if (event.key === 'ArrowLeft' && localCurrentIndex.value > 0) {
-        const newIndex = localCurrentIndex.value - 1
-        localCurrentIndex.value = newIndex
-        currentIndex.value = newIndex
-    } else if (event.key === 'ArrowRight' && localCurrentIndex.value < images.value.length - 1) {
-        const newIndex = localCurrentIndex.value + 1
-        localCurrentIndex.value = newIndex
-        currentIndex.value = newIndex
     }
+    // Remove manual arrow key handling - let the carousel component handle navigation
+    // This prevents conflicts between manual index updates and carousel's internal state
 }
 
 // Lifecycle

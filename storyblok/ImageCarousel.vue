@@ -3,8 +3,8 @@
         <Carousel
             ref="carousel"
             :items-to-show="itemsToShow"
-            :wrap-around="true"
-            :transition="500"
+            :wrap-around="carouselSettings.wrapAround"
+            :transition="carouselSettings.transition || 500"
             v-model="currentSlide"
             @slide-start="onSlideChange"
             :settings="carouselSettings"
@@ -43,12 +43,13 @@ const itemsToShow = computed(() => {
 
 const carouselSettings = computed(() => ({
     snapAlign: 'center',
-    wrapAround: props.blok?.images?.length > 1,
+    wrapAround: props.blok?.wrapAround !== undefined ? props.blok.wrapAround : (props.blok?.images?.length > 1),
     autoplay: (props.blok?.autoplay || false) && props.blok?.images?.length > 1,
     autoplayTimeout: props.blok?.autoplay_interval || 5000,
     itemsToScroll: 1,
     mouseDrag: props.blok?.images?.length > 1,
     touchDrag: props.blok?.images?.length > 1,
+    transition: props.blok?.transition || 500,
 }))
 
 const updateWindowWidth = () => {
@@ -70,6 +71,16 @@ const goToNext = () => {
 const onSlideChange = (data) => {
     currentSlide.value = data.currentSlideIndex
     emit('slideChange', data.currentSlideIndex)
+}
+
+// Method to set initial slide without transition
+const setInitialSlide = () => {
+    if (carousel.value && props.blok?.initialSlide !== undefined) {
+        // Use slideTo with no transition for initial positioning
+        nextTick(() => {
+            carousel.value.slideTo(props.blok.initialSlide, { transition: false })
+        })
+    }
 }
 
 // Custom inview animation for container (copied from ImageGrid)
@@ -101,6 +112,11 @@ const setupInviewAnimations = () => {
 onMounted(() => {
     updateWindowWidth()
     window.addEventListener('resize', updateWindowWidth)
+
+    // Set initial slide without transition
+    setTimeout(() => {
+        setInitialSlide()
+    }, 50)
 
     // Setup custom inview animations
     setTimeout(() => {
