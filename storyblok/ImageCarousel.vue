@@ -6,6 +6,7 @@
             :wrap-around="true"
             :transition="500"
             v-model="currentSlide"
+            @slide-start="onSlideChange"
             :settings="carouselSettings"
         >
             <Slide
@@ -23,14 +24,15 @@
         </Carousel>
 
         <!-- Large invisible navigation buttons -->
-        <button class="carousel-nav-btn carousel-nav-prev" @click="goToPrev" aria-label="Previous image"></button>
-        <button class="carousel-nav-btn carousel-nav-next" @click="goToNext" aria-label="Next image"></button>
+        <button v-if="blok?.images?.length > 1" class="carousel-nav-btn carousel-nav-prev" @click="goToPrev" aria-label="Previous image"></button>
+        <button v-if="blok?.images?.length > 1" class="carousel-nav-btn carousel-nav-next" @click="goToNext" aria-label="Next image"></button>
     </div>
 </template>
 
 <script setup>
 const props = defineProps({ blok: Object })
-const currentSlide = ref(0)
+const emit = defineEmits(['slideChange'])
+const currentSlide = ref(props.blok?.initialSlide || 0)
 const windowWidth = ref(0)
 const carousel = ref(null)
 let observer = null
@@ -39,15 +41,15 @@ const itemsToShow = computed(() => {
     return windowWidth.value <= 768 ? 1 : 1.5
 })
 
-const carouselSettings = {
+const carouselSettings = computed(() => ({
     snapAlign: 'center',
-    wrapAround: true,
-    autoplay: props.blok?.autoplay || false,
+    wrapAround: props.blok?.images?.length > 1,
+    autoplay: (props.blok?.autoplay || false) && props.blok?.images?.length > 1,
     autoplayTimeout: props.blok?.autoplay_interval || 5000,
     itemsToScroll: 1,
-    mouseDrag: true,
-    touchDrag: true,
-}
+    mouseDrag: props.blok?.images?.length > 1,
+    touchDrag: props.blok?.images?.length > 1,
+}))
 
 const updateWindowWidth = () => {
     windowWidth.value = window.innerWidth
@@ -63,6 +65,11 @@ const goToNext = () => {
     if (carousel.value) {
         carousel.value.next()
     }
+}
+
+const onSlideChange = (data) => {
+    currentSlide.value = data.currentSlideIndex
+    emit('slideChange', data.currentSlideIndex)
 }
 
 // Custom inview animation for container (copied from ImageGrid)

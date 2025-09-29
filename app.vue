@@ -5,6 +5,7 @@
     </NuxtLayout>
     <CustomCursor />
     <Cart />
+    <HomepageLightbox />
   </div>
 </template>
 
