@@ -34,31 +34,8 @@ const shuffleArray = (array) => {
     return shuffled
 }
 
-// Custom inview animation
-const setupInviewAnimations = () => {
-    observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1'
-                entry.target.style.filter = 'blur(0rem)'
-            }
-        })
-    }, {
-        threshold: 0.1,
-        rootMargin: '50px'
-    })
-
-    // Observe all images
-    const images = document.querySelectorAll('.grid-image')
-    images.forEach(img => {
-        // Set initial state
-        img.style.opacity = '0'
-        img.style.filter = 'blur(2rem)'
-        img.style.transition = 'opacity 0.8s ease, filter 0.8s ease'
-
-        observer.observe(img)
-    })
-}
+// Use global grid layout animations
+const { setupInviewAnimations } = useGridLayout()
 
 // Only enable scroll detection if not using forced groups (infinite scroll mode)
 const handleScroll = () => {

@@ -1,7 +1,8 @@
 <template>
-    <div>
+    <div class="ca-layout">
         <Header />
         <slot />
+        <Footer v-if="isHomepage" />
     </div>
 </template>
 
@@ -36,5 +37,10 @@ watch(() => route.path, () => {
     nextTick(() => {
         applyBodyClasses()
     })
+})
+
+// Check if we're on the homepage
+const isHomepage = computed(() => {
+    return route.path === '/' || route.name === 'index' || route.path === '/home'
 })
 </script>

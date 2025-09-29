@@ -27,6 +27,9 @@ import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 
 const props = defineProps({ blok: Object })
 
+// Initialize grid layout animations
+const { initializeAnimations } = useGridLayout()
+
 // SEO Meta Tags
 useSeo(props.blok, {
     fallbackTitle: '',
@@ -149,6 +152,8 @@ onMounted(() => {
 
         nextTick(() => {
             setupObserver()
+            // Initialize inview blur animations for grid images
+            initializeAnimations()
         })
     }
 })

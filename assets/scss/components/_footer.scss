@@ -1,0 +1,76 @@
+@import '../partials/type';
+
+.Footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 800;
+    pointer-events: auto;
+    background-color: transparent;
+    padding: 20px;
+    transition: background-color .7s ease-in-out;
+
+    // Mobile-specific fixes for better fixed positioning
+    @media (max-width: 768px) {
+        // Force hardware acceleration for smoother performance
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+
+        // Prevent iOS bounce during scroll
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+
+        // Ensure proper stacking and positioning
+        will-change: transform;
+        padding: 15px;
+    }
+
+    nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+
+        @media (max-width: 768px) {
+            gap: 1rem;
+        }
+    }
+
+    // Typography and links - matching header styles
+    .Link {
+        @extend .type-nav !optional;
+
+        padding-bottom: 1px;
+        text-decoration: none;
+        text-transform: uppercase;
+        border-bottom: 2px solid transparent;
+        transition: color 0.3s ease-in-out, border-bottom-color 0.3s ease-in-out;
+        position: relative;
+        cursor: pointer;
+
+        // Remove default border on hover
+        &:hover,
+        &.active {
+            color: var(--ca-primary);
+            border-bottom-color: transparent;
+            transition: color 0.3s ease-in-out, border-bottom-color 0.3s ease-in-out;
+        }
+
+        // Create shorter bottom border with pseudo-element
+        &:hover,
+        &.active {
+            border-bottom-color: var(--ca-primary);
+            transition: background-color 0.3s ease-in-out;
+            transition: color 0.3s ease-in-out, border-bottom-color 0.3s ease-in-out;
+        }
+    }
+}
+
+// Non-home pages get white background (matching header behavior)
+body:not(.page-home) {
+    .Footer {
+        background-color: #fff;
+        transition: background-color .7s ease-in-out;
+    }
+}

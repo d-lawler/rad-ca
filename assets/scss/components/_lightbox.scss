@@ -4,8 +4,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
     z-index: 1000;
     display: flex;
     align-items: center;
@@ -16,8 +16,8 @@
 
 .homepage-lightbox-content {
     position: relative;
-    width: 100vw;
-    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
     background-color: transparent;
 }
 
@@ -30,14 +30,14 @@
 }
 
 .lightbox-images :deep(.carousel) {
-    height: 100vh;
+    height: 100dvh;
 }
 
 .single-lightbox-image {
     object-fit: contain;
     margin: 0 !important;
     width: auto !important;
-    height: 70vh !important;
+    height: 70dvh !important;
     padding: 20px;
 }
 
@@ -45,7 +45,7 @@
     object-fit: contain;
     margin: 0 !important;
     width: auto !important;
-    height: 70vh !important;
+    height: 70dvh !important;
 }
 
 .lightbox-caption {
@@ -67,8 +67,8 @@
     font-size: 14px;
     margin: 0;
     flex: 1;
+    color: #666;
 }
-
 
 .lightbox-close-btn {
     font-weight: 200;
