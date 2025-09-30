@@ -2,7 +2,6 @@
     <div class="ca-layout">
         <Header />
         <slot />
-        <Footer v-if="isHomepage" />
     </div>
 </template>
 

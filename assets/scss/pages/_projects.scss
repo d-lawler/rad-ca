@@ -58,7 +58,7 @@
     }
 
     .title {
-        @extend .type-heading-display !optional;
+        @extend .type-heading-large !optional;
         top: 45%;
         width: 100%;
         padding-bottom: 8rem;
