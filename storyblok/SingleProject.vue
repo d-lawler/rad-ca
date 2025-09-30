@@ -2,15 +2,6 @@
     <div v-editable="blok" class="projects-page single-project-page">
         <div v-if="!isAtBottom" class="content-list-item">
             <div class="content container additional-padding" id="scroll-anchor">
-                <div class="backup-thumb">
-                    <video v-if="blok.featured_video" :src="blok.featured_video.filename"
-                        autoplay muted loop playsinline>
-                    </video>
-                    <NuxtImg v-else-if="blok.featured_image"
-                        :src="blok.featured_image.filename"
-                        :alt="blok.featured_image.alt || blok.name" />
-                </div>
-
                 <div class="title" ref="titleElement" style="opacity: 1; transition: opacity 0.3s ease;">
                     <h1 @click="toggleInfoPopup" style="cursor: pointer;">
                         {{ blok.name }}

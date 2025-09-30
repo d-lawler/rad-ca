@@ -20,10 +20,6 @@
             <Transition name="fade-blur" mode="out-in">
                 <div v-if="selectedProject" class="content container additional-padding"
                     :key="selectedProject?.uuid" id="scroll-anchor">
-                    <div class="backup-thumb">
-                        <NuxtImg :src="selectedProject.content.featured_image.filename"
-                            :alt="selectedProject.content.featured_image.alt" />
-                    </div>
                     <div class="title" ref="titleElement" style="opacity: 0; transition: opacity 0.3s ease;">
                         <h1 @click="toggleInfoPopup" style="cursor: pointer;">
                             {{ selectedProject?.content?.name }}
