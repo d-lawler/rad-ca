@@ -59,17 +59,14 @@
 
     .title {
         @extend .type-heading-large !optional;
-        top: 45%;
-        width: 100%;
-        padding-bottom: 8rem;
+        top: calc(50% - 1.5rem);
+        margin-bottom: 8rem;
         text-align: center;
         position: sticky;
+        width: 100%;
 
         h1:hover {
             color: var(--ca-primary);
-        }
-        @media (min-width: 768px) {
-            margin-left: 60px;
         }
         @media (max-width: 768px) {
             h1 {
@@ -86,7 +83,9 @@
             margin-top: 1rem;
 
             @media (min-width: 768px) {
-                font-size: 36px;
+                right: -25px;
+                bottom: 5px;
+                position: absolute;
 
                 span.mobile {
                     display: none;

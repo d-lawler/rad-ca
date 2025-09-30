@@ -19,11 +19,11 @@
             </Transition>
             <Transition name="fade-blur" mode="out-in">
                 <div v-if="selectedProject" class="content container additional-padding"
-                    :key="selectedProject?.uuid" id="scroll-anchor">
+                    :key="selectedProject?.uuid" id="scroll-anchor" @click="toggleInfoPopup" style="cursor: pointer;">
                     <div class="title" ref="titleElement" style="opacity: 0; transition: opacity 0.3s ease;">
-                        <h1 @click="toggleInfoPopup" style="cursor: pointer;">
+                        <h1>
                             {{ selectedProject?.content?.name }}
-                            <button class="info-button" @click="toggleInfoPopup">
+                            <button class="info-button">
                                 (I<span class="mobile">NFO</span>)
                             </button>
                         </h1>

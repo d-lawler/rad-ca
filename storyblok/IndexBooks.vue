@@ -18,12 +18,11 @@
                 </div>
             </Transition>
             <Transition name="fade-blur" mode="out-in">
-                <div v-if="selectedBook" class="content" :key="selectedBook?.uuid">
+                <div v-if="selectedBook" class="content" :key="selectedBook?.uuid" @click="toggleInfoPopup" style="cursor: pointer;">
                     <div class="title" ref="titleElement" style="opacity: 0; transition: opacity 0.3s ease;">
-                        <h1 @click="toggleInfoPopup" style="cursor: pointer;">
+                        <h1>
                             {{ selectedBook?.content?.name }}
-                            <button class="info-button"
-                                @click="toggleInfoPopup">
+                            <button class="info-button">
                                 (I<span class="mobile">NFO</span>)
                             </button>
                         </h1>
