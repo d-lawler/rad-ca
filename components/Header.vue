@@ -2,18 +2,15 @@
     <header class="Header" :class="{ 'mobile-menu-open': isMobileMenuOpen }">
         <nav class="container mx-auto flex items-center justify-between py-4">
 
-            <!-- Desktop CA logo + Mobile header -->
             <div class="flex items-center space-x-4 nav">
                 <NuxtLink to="/" class="ca" @click="handleNavClick">CA</NuxtLink>
-                <!-- Mobile hamburger - only visible on mobile -->
                 <button @click="toggleMobileMenu" class="hamburger-menu">
                     <span class="hamburger-line"></span>
                     <span class="hamburger-line"></span>
                 </button>
             </div>
 
-            <!-- Desktop navigation - hidden on mobile -->
-            <div class="flex items-center justify-center space-x-12 nav link-group">
+            <div class="flex items-center justify-center space-x-8 nav link-group">
                 <NuxtLink to="/books" @click="handleBooksNavClick">Books</NuxtLink>
                 <NuxtLink to="/projects" @click="handleProjectsNavClick">Index</NuxtLink>
                 <NuxtLink to="/stuff" @click="handleNavClick">Stuff</NuxtLink>
@@ -27,7 +24,6 @@
                 <NuxtLink to="/about" @click="handleNavClick">About</NuxtLink>
             </div>
 
-            <!-- Mobile navigation content - appears when menu is open -->
             <div class="mobile-nav-content">
                 <div class="link-group">
                     <NuxtLink to="/books" @click="handleMobileBooksNavClick">Books</NuxtLink>
