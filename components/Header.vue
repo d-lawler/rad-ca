@@ -13,7 +13,7 @@
             </div>
 
             <!-- Desktop navigation - hidden on mobile -->
-            <div class="flex items-center justify-center space-x-4 nav link-group">
+            <div class="flex items-center justify-center space-x-12 nav link-group">
                 <NuxtLink to="/books" @click="handleBooksNavClick">Books</NuxtLink>
                 <NuxtLink to="/projects" @click="handleProjectsNavClick">Index</NuxtLink>
                 <NuxtLink to="/stuff" @click="handleNavClick">Stuff</NuxtLink>
