@@ -51,6 +51,7 @@
         align-items: center;
         justify-content: center;
         height: calc(100dvh - 3.5rem);
+        pointer-events: none;
     }
 
     .content {
