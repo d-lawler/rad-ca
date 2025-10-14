@@ -34,7 +34,7 @@
                 :class="`grid-image ${gridMode}`"
                 loading="lazy"
                 format="webp"
-                quality="25"
+                quality="70"
                 sizes="sm:200px md:200px lg:200px xl:200px"
                 @load="onImageLoad"
                 @error="onImageError"
