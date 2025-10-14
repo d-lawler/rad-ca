@@ -93,3 +93,17 @@
     pointer-events: none;
     transition: opacity 0.2s ease, filter 0.2s ease;
 }
+
+.more-exhibitions-link {
+    margin-top: 1rem; 
+    padding-bottom: 3px;
+    display: inline-block; 
+    border-bottom: 2px solid; 
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        color: var(--ca-primary); 
+        border-color: var(--ca-primary); 
+        transition: all 0.3s ease-in-out;
+    }
+} 

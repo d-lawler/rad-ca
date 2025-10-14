@@ -1,10 +1,12 @@
 <template>
     <div v-editable="blok" class="books-page single-book-page">
         <div v-if="!isAtBottom" class="content-list-item">
+            <!-- 
             <div v-if="blok.featured_image" class="thumbnail thumbnail-locked">
                 <NuxtImg :src="blok.featured_image.filename"
                     :alt="blok.featured_image.alt || blok.name" />
-            </div>
+            </div> 
+            -->
             <div class="content">
                 <div class="title" ref="titleElement" style="opacity: 1; transition: opacity 0.3s ease;">
                     <h1 @click="toggleInfoPopup" style="cursor: pointer;">

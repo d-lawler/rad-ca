@@ -8,6 +8,7 @@
 
                 <div v-if="blok.exhibition_lists && blok.exhibition_lists.length" class="about-exhibitions-sidebar">
                     <StoryblokComponent v-for="exhibitionList in blok.exhibition_lists" :key="exhibitionList._uid" :blok="exhibitionList" />
+                    <NuxtLink to="/exhibitions" class="more-exhibitions-link">See More</NuxtLink>
                 </div>
             </div>
         </div>
@@ -16,12 +17,5 @@
 
 <script setup>
 import { renderRichText } from '@storyblok/vue'
-
 const props = defineProps({ blok: Object })
-
-// SEO Meta Tags
-useSeo(props.blok, {
-    fallbackTitle: 'About Christopher Anderson - Artist Biography',
-    fallbackDescription: 'Learn about Christopher Anderson, contemporary artist and photographer. Discover his background, artistic vision, and creative journey.'
-})
 </script>
