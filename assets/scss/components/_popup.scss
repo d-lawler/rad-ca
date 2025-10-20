@@ -40,6 +40,10 @@
         }
 
         .popup-text {
+            @media (max-width: 768px) {
+                order: -1 !important;
+            }
+
             width: 50%;
             padding: 0 20px;
             @extend .type-body-m !optional;
@@ -58,11 +62,10 @@
         }
 
         @media (max-width: 768px) {
-            flex-direction: column-reverse;
-            justify-content: flex-start;
-            width: calc(100% - 20px);
             margin-right: 0;
             overflow-y: auto;
+            flex-direction: column;
+            width: calc(100% - 20px);
             -webkit-overflow-scrolling: touch;
 
             .popup-images,
